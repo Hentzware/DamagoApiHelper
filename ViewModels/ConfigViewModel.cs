@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DamagoApiHelper.Models;
 using DamagoApiHelper.Services;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Prism.Commands;
@@ -11,14 +12,14 @@ public class ConfigViewModel : BindableBase
     private readonly IProjectAnalyzerService _projectAnalyzerService;
     private DelegateCommand _projectPathSearchCommand;
     private string _projectPath;
-    private List<string> _endpoints;
+    private List<Endpoint> _endpoints;
 
     public ConfigViewModel(IProjectAnalyzerService projectAnalyzerService)
     {
         _projectAnalyzerService = projectAnalyzerService;
     }
 
-    public List<string> Endpoints
+    public List<Endpoint> Endpoints
     {
         get => _endpoints;
         set => SetProperty(ref _endpoints, value);

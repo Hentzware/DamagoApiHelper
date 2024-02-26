@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:DamagoApiHelper.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:Background="White"
-    d:DesignHeight="450"
+    d:DesignHeight="600"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Grid>
@@ -44,10 +44,10 @@
             Command="{Binding ProjectPathSearchCommand}"
             Content="Durchsuchen" />
 
-        <ListBox
-            Grid.Row="1"
+        <ListBox MaxHeight="400"
+            Grid.Row="1" Margin="20,0,20,0"
             Grid.Column="1"
-            MinHeight="200"
+            MinHeight="400" DisplayMemberPath="EntityFileName"
             ItemsSource="{Binding Endpoints, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
 </UserControl>

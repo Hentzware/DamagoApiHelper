@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DamagoApiHelper.Models;
 
 namespace DamagoApiHelper.Services
 {
     public interface IProjectAnalyzerService
     {
-        List<string> GetEndpoints(string projectPath);
+        List<Endpoint> GetEndpoints(string projectPath);
     }
 }
