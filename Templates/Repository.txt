@@ -1,0 +1,36 @@
+﻿package {{projectPath}}.repositories;
+
+import {{projectPath}}.entities.{{EntityName}};
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.query.Procedure;
+import org.springframework.transaction.annotation.Transactional;
+
+@Transactional(readOnly = true)
+public interface {{EntityName}}Repository extends JpaRepository<{{EntityName}}, String> {
+    @Procedure
+    String sp_{{EntityNames}}_Add();
+
+    @Procedure
+    void sp_{{EntityNames}}_Delete(String id);
+
+    @Procedure
+    void sp_{{EntityNames}}_DeletePermanent(String id);
+
+    @Procedure
+    Iterable<{{EntityName}}> sp_{{EntityNames}}_Get();
+
+    @Procedure
+    {{EntityName}} sp_{{EntityNames}}_GetById(String id);
+
+    @Procedure
+    Iterable<{{EntityName}}> sp_{{EntityNames}}_GetDeleted();
+
+    @Procedure
+    Iterable<{{EntityName}}> sp_{{EntityNames}}_Search();
+
+    @Procedure
+    void sp_{{EntityNames}}_Undelete(String id);
+
+    @Procedure
+    void sp_{{EntityNames}}_Update();
+}

@@ -1,0 +1,18 @@
+﻿package {{projectPath}}.services;
+
+import {{projectPath}}.requests.{{entityName}}.*;
+import {{projectPath}}.responses.{{EntityName}}Response;
+
+public interface {{EntityName}}Service {
+    {{EntityName}}Response Add(Add{{EntityName}}Request request);
+
+    void Delete(Delete{{EntityName}}Request request, boolean permanent);
+
+    {{EntityName}}Response Edit(Edit{{EntityName}}Request request);
+
+    Iterable<{{EntityName}}Response> Get(boolean deleted);
+
+    {{EntityName}}Response GetById(Get{{EntityName}}Request request);
+
+    Iterable<{{EntityName}}Response> Search(Search{{EntityName}}Request request);
+}

@@ -1,0 +1,90 @@
+﻿package {{projectPath}}.controllers;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+import {{projectPath}}.requests.{{EntityName}}.*;
+import {{projectPath}}.responses.{{EntityName}}Response;
+import {{projectPath}}.services.{{EntityName}}Service;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/damago/api/v1/{{entityName}}")
+@Transactional
+@Tag(name = "{{EntityName}}")
+public class {{EntityName}}Controller {
+    private final {{EntityName}}Service {{entityName}}Service;
+
+    public {{EntityName}}Controller({{EntityName}}Service {{entityName}}Service) {
+        this.{{entityName}}Service = {{entityName}}Service;
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> Delete(@PathVariable String id, @RequestParam(required = false, value = "permanent", defaultValue = "false") boolean permanent) {
+        Delete{{EntityName}}Request request = new Delete{{EntityName}}Request();
+
+        request.setId(id);
+        {{entityName}}Service.Delete(request, permanent);
+
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping
+    public ResponseEntity<Iterable<{{EntityName}}Response>> Get(@RequestParam(required = false, value = "deleted", defaultValue = "false") boolean deleted) {
+        Iterable<{{EntityName}}Response> result = {{entityName}}Service.Get(deleted);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<{{EntityName}}Response> GetById(@PathVariable String id) {
+        Get{{EntityName}}Request request = new Get{{EntityName}}Request();
+
+        request.setId(id);
+
+        {{EntityName}}Response result = {{entityName}}Service.GetById(request);
+
+        if (result == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<{{EntityName}}Response> Post(@RequestBody Add{{EntityName}}Request request) {
+        {{EntityName}}Response result = {{entityName}}Service.Add(request);
+
+        if (result == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<{{EntityName}}Response> Put(@PathVariable String id, @RequestBody Edit{{EntityName}}Request request) {
+        request.setId(id);
+        {{EntityName}}Response result = {{entityName}}Service.Edit(request);
+
+        if (result == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Iterable<{{EntityName}}Response>> Search(
+            @RequestParam(required = false, value = "name") String name) {
+
+        Search{{EntityName}}Request request = new Search{{EntityName}}Request();
+
+        request.setName(name);
+
+        Iterable<{{EntityName}}Response> result = {{entityName}}Service.Search(request);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+}
