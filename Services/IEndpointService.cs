@@ -1,44 +1,47 @@
-﻿namespace DamagoApiHelper.Services;
+﻿using System.Collections.Generic;
+using DamagoApiHelper.Models;
+
+namespace DamagoApiHelper.Services;
 
 public interface IEndpointService
 {
-    void AddAddRequest();
+    void AddAddRequest(Endpoint endpoint, Dictionary<string, string> replacementDictionary);
     
-    void AddController();
+    void AddController(Endpoint endpoint, Dictionary<string, string> replacementDictionary);
 
-    void AddDeleteRequest();
+    void AddDeleteRequest(Endpoint endpoint, Dictionary<string, string> replacementDictionary);
 
-    void AddEditRequest();
+    void AddEditRequest(Endpoint endpoint, Dictionary<string, string> replacementDictionary);
 
-    void AddGetRequest();
+    void AddGetRequest(Endpoint endpoint, Dictionary<string, string> replacementDictionary);
 
-    void AddRepository();
+    void AddRepository(Endpoint endpoint, Dictionary<string, string> replacementDictionary);
 
-    void AddResponse();
+    void AddResponse(Endpoint endpoint, Dictionary<string, string> replacementDictionary);
 
-    void AddSearchRequest();
+    void AddSearchRequest(Endpoint endpoint, Dictionary<string, string> replacementDictionary);
 
-    void AddService();
+    void AddService(Endpoint endpoint, Dictionary<string, string> replacementDictionary);
 
-    void AddServiceImpl();
+    void AddServiceImpl(Endpoint endpoint, Dictionary<string, string> replacementDictionary);
 
-    void RemoveAddRequest();
+    void RemoveAddRequest(Endpoint endpoint);
 
-    void RemoveController();
+    void RemoveController(Endpoint endpoint);
 
-    void RemoveDeleteRequest();
+    void RemoveDeleteRequest(Endpoint endpoint);
 
-    void RemoveEditRequest();
+    void RemoveEditRequest(Endpoint endpoint);
 
-    void RemoveGetRequest();
+    void RemoveGetRequest(Endpoint endpoint);
 
-    void RemoveRepository();
+    void RemoveRepository(Endpoint endpoint);
 
-    void RemoveResponse();
+    void RemoveResponse(Endpoint endpoint);
 
-    void RemoveSearchRequest();
+    void RemoveSearchRequest(Endpoint endpoint);
 
-    void RemoveService();
+    void RemoveService(Endpoint endpoint);
 
-    void RemoveServiceImpl();
+    void RemoveServiceImpl(Endpoint endpoint);
 }

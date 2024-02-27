@@ -1,109 +1,118 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DamagoApiHelper.Models;
 
-namespace DamagoApiHelper.Services
+namespace DamagoApiHelper.Services;
+
+public class EndpointService : IEndpointService
 {
-    public class EndpointService : IEndpointService
+    private readonly ITemplateService _templateService;
+    private readonly ITextService _textService;
+
+    public EndpointService(ITemplateService templateService, ITextService textService)
     {
-        private readonly ITextService _textService;
-        private readonly Endpoint _endpoint;
+        _templateService = templateService;
+        _textService = textService;
+    }
 
-        public EndpointService(ITextService textService, Endpoint endpoint)
-        {
-            _textService = textService;
-            _endpoint = endpoint;
-        }
+    public void AddAddRequest(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
+    {
+        var template = _templateService.LoadAddRequestTemplate();
+        
+    }
 
-        public void AddAddRequest()
-        {
-            if (File.Exists(_endpoint.AddRequestFilePath))
-            {
-                File.Delete(_endpoint.AddRequestFilePath);
-            }
+    public void AddController(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
+    {
+        throw new NotImplementedException();
+    }
 
-            File.Create(_endpoint.AddRequestFilePath);
-            File.WriteAllText(_endpoint.AddRequestFilePath, "");
-        }
+    public void AddDeleteRequest(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
+    {
+        throw new NotImplementedException();
+    }
 
-        public void AddController()
-        {
-        }
+    public void AddEditRequest(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
+    {
+        throw new NotImplementedException();
+    }
 
-        public void AddDeleteRequest()
-        {
-        }
+    public void AddGetRequest(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
+    {
+        throw new NotImplementedException();
+    }
 
-        public void AddEditRequest()
-        {
-        }
+    public void AddRepository(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
+    {
+        throw new NotImplementedException();
+    }
 
-        public void AddGetRequest()
-        {
-        }
+    public void AddResponse(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
+    {
+        throw new NotImplementedException();
+    }
 
-        public void AddRepository()
-        {
-        }
+    public void AddSearchRequest(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
+    {
+        throw new NotImplementedException();
+    }
 
-        public void AddResponse()
-        {
-        }
+    public void AddService(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
+    {
+        throw new NotImplementedException();
+    }
 
-        public void AddSearchRequest()
-        {
-        }
+    public void AddServiceImpl(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
+    {
+        throw new NotImplementedException();
+    }
 
-        public void AddService()
-        {
-        }
+    public void RemoveAddRequest(Endpoint endpoint)
+    {
+        throw new NotImplementedException();
+    }
 
-        public void AddServiceImpl()
-        {
-        }
+    public void RemoveController(Endpoint endpoint)
+    {
+        throw new NotImplementedException();
+    }
 
-        public void RemoveAddRequest()
-        {
-        }
+    public void RemoveDeleteRequest(Endpoint endpoint)
+    {
+        throw new NotImplementedException();
+    }
 
-        public void RemoveController()
-        {
-        }
+    public void RemoveEditRequest(Endpoint endpoint)
+    {
+        throw new NotImplementedException();
+    }
 
-        public void RemoveDeleteRequest()
-        {
-        }
+    public void RemoveGetRequest(Endpoint endpoint)
+    {
+        throw new NotImplementedException();
+    }
 
-        public void RemoveEditRequest()
-        {
-        }
+    public void RemoveRepository(Endpoint endpoint)
+    {
+        throw new NotImplementedException();
+    }
 
-        public void RemoveGetRequest()
-        {
-        }
+    public void RemoveResponse(Endpoint endpoint)
+    {
+        throw new NotImplementedException();
+    }
 
-        public void RemoveRepository()
-        {
-        }
+    public void RemoveSearchRequest(Endpoint endpoint)
+    {
+        throw new NotImplementedException();
+    }
 
-        public void RemoveResponse()
-        {
-        }
+    public void RemoveService(Endpoint endpoint)
+    {
+        throw new NotImplementedException();
+    }
 
-        public void RemoveSearchRequest()
-        {
-        }
-
-        public void RemoveService()
-        {
-        }
-
-        public void RemoveServiceImpl()
-        {
-        }
+    public void RemoveServiceImpl(Endpoint endpoint)
+    {
+        throw new NotImplementedException();
     }
 }

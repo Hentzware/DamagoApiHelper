@@ -12,16 +12,16 @@ public class ConfigViewModel : BindableBase
 {
     private readonly IAnalyzerService _analyzerService;
     private readonly IEndpointService _endpointService;
-    private string _addRequestStatus;
-    private string _controllerStatus;
-    private string _deleteRequestStatus;
-    private string _editRequestStatus;
-    private string _getRequestStatus;
-    private string _repositoryStatus;
-    private string _responseStatus;
-    private string _searchRequestStatus;
-    private string _serviceInterfaceStatus;
-    private string _serviceStatus;
+    private string _addRequestStatus = "UNBEKANNT";
+    private string _controllerStatus = "UNBEKANNT";
+    private string _deleteRequestStatus = "UNBEKANNT";
+    private string _editRequestStatus = "UNBEKANNT";
+    private string _getRequestStatus = "UNBEKANNT";
+    private string _repositoryStatus = "UNBEKANNT";
+    private string _responseStatus = "UNBEKANNT";
+    private string _searchRequestStatus = "UNBEKANNT";
+    private string _serviceInterfaceStatus = "UNBEKANNT";
+    private string _serviceStatus = "UNBEKANNT";
     private DelegateCommand _projectPathSearchCommand;
     private DelegateCommand<string> _addCommand;
     private DelegateCommand<string> _removeCommand;
@@ -42,7 +42,7 @@ public class ConfigViewModel : BindableBase
     public ConfigViewModel(IAnalyzerService analyzerService, ITextService textService)
     {
         _analyzerService = analyzerService;
-        _endpointService = new EndpointService(textService, SelectedEndpoint);
+        _endpointService = new EndpointService();
     }
 
     public string AddRequestStatus
