@@ -12,7 +12,7 @@ namespace DamagoApiHelper.ViewModels
 {
     public class ShellViewModel : BindableBase
     {
-        public ShellViewModel(ITextReplaceService textReplaceService, IRegionManager regionManager)
+        public ShellViewModel(ITextService textService, IRegionManager regionManager)
         {
             regionManager.RegisterViewWithRegion<ConfigView>("MainRegion");
         }

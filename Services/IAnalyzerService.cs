@@ -7,7 +7,7 @@ using DamagoApiHelper.Models;
 
 namespace DamagoApiHelper.Services
 {
-    public interface IProjectAnalyzerService
+    public interface IAnalyzerService
     {
         List<Endpoint> GetEndpoints(string projectPath);
     }

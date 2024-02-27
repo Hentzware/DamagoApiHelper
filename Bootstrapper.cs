@@ -1,11 +1,6 @@
 ﻿using DamagoApiHelper.Views;
 using Prism.DryIoc;
 using Prism.Ioc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using DamagoApiHelper.Services;
 
@@ -15,9 +10,10 @@ namespace DamagoApiHelper
     {
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterScoped<ITextReplaceService, TextReplaceService>();
-            containerRegistry.RegisterScoped<IProjectAnalyzerService, ProjectAnalyzerService>();
+            containerRegistry.RegisterScoped<ITextService, TextService>();
+            containerRegistry.RegisterScoped<IAnalyzerService, AnalyzerService>();
             containerRegistry.RegisterScoped<IEndpointService, EndpointService>();
+            containerRegistry.RegisterScoped<ITemplateService, TemplateService>();
         }
 
         protected override DependencyObject CreateShell()

@@ -10,12 +10,12 @@ namespace DamagoApiHelper.Services
 {
     public class EndpointService : IEndpointService
     {
-        private readonly ITextReplaceService _textReplaceService;
+        private readonly ITextService _textService;
         private readonly Endpoint _endpoint;
 
-        public EndpointService(ITextReplaceService textReplaceService, Endpoint endpoint)
+        public EndpointService(ITextService textService, Endpoint endpoint)
         {
-            _textReplaceService = textReplaceService;
+            _textService = textService;
             _endpoint = endpoint;
         }
 

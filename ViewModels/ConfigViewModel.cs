@@ -10,18 +10,18 @@ namespace DamagoApiHelper.ViewModels;
 
 public class ConfigViewModel : BindableBase
 {
+    private readonly IAnalyzerService _analyzerService;
     private readonly IEndpointService _endpointService;
-    private readonly IProjectAnalyzerService _projectAnalyzerService;
-    private bool _addRequestStatus;
-    private bool _controllerStatus;
-    private bool _deleteRequestStatus;
-    private bool _editRequestStatus;
-    private bool _getRequestStatus;
-    private bool _repositoryStatus;
-    private bool _responseStatus;
-    private bool _searchRequestStatus;
-    private bool _serviceInterfaceStatus;
-    private bool _serviceStatus;
+    private string _addRequestStatus;
+    private string _controllerStatus;
+    private string _deleteRequestStatus;
+    private string _editRequestStatus;
+    private string _getRequestStatus;
+    private string _repositoryStatus;
+    private string _responseStatus;
+    private string _searchRequestStatus;
+    private string _serviceInterfaceStatus;
+    private string _serviceStatus;
     private DelegateCommand _projectPathSearchCommand;
     private DelegateCommand<string> _addCommand;
     private DelegateCommand<string> _removeCommand;
@@ -39,13 +39,13 @@ public class ConfigViewModel : BindableBase
     private SolidColorBrush _serviceStatusColor = new(Colors.Gray);
     private string _projectPath;
 
-    public ConfigViewModel(IProjectAnalyzerService projectAnalyzerService, ITextReplaceService textReplaceService)
+    public ConfigViewModel(IAnalyzerService analyzerService, ITextService textService)
     {
-        _projectAnalyzerService = projectAnalyzerService;
-        _endpointService = new EndpointService(textReplaceService, SelectedEndpoint);
+        _analyzerService = analyzerService;
+        _endpointService = new EndpointService(textService, SelectedEndpoint);
     }
 
-    public bool AddRequestStatus
+    public string AddRequestStatus
     {
         get => _addRequestStatus;
         set
@@ -55,7 +55,7 @@ public class ConfigViewModel : BindableBase
         }
     }
 
-    public bool ControllerStatus
+    public string ControllerStatus
     {
         get => _controllerStatus;
         set
@@ -65,7 +65,7 @@ public class ConfigViewModel : BindableBase
         }
     }
 
-    public bool DeleteRequestStatus
+    public string DeleteRequestStatus
     {
         get => _deleteRequestStatus;
         set
@@ -75,7 +75,7 @@ public class ConfigViewModel : BindableBase
         }
     }
 
-    public bool EditRequestStatus
+    public string EditRequestStatus
     {
         get => _editRequestStatus;
         set
@@ -85,7 +85,7 @@ public class ConfigViewModel : BindableBase
         }
     }
 
-    public bool GetRequestStatus
+    public string GetRequestStatus
     {
         get => _getRequestStatus;
         set
@@ -95,7 +95,7 @@ public class ConfigViewModel : BindableBase
         }
     }
 
-    public bool RepositoryStatus
+    public string RepositoryStatus
     {
         get => _repositoryStatus;
         set
@@ -105,7 +105,7 @@ public class ConfigViewModel : BindableBase
         }
     }
 
-    public bool ResponseStatus
+    public string ResponseStatus
     {
         get => _responseStatus;
         set
@@ -115,7 +115,7 @@ public class ConfigViewModel : BindableBase
         }
     }
 
-    public bool SearchRequestStatus
+    public string SearchRequestStatus
     {
         get => _searchRequestStatus;
         set
@@ -125,7 +125,7 @@ public class ConfigViewModel : BindableBase
         }
     }
 
-    public bool ServiceInterfaceStatus
+    public string ServiceInterfaceStatus
     {
         get => _serviceInterfaceStatus;
         set
@@ -135,7 +135,7 @@ public class ConfigViewModel : BindableBase
         }
     }
 
-    public bool ServiceStatus
+    public string ServiceStatus
     {
         get => _serviceStatus;
         set
@@ -236,12 +236,9 @@ public class ConfigViewModel : BindableBase
         set => SetProperty(ref _projectPath, value);
     }
 
-    private SolidColorBrush GetStatusColor(bool status)
+    private SolidColorBrush GetStatusColor(string status)
     {
-        if (status)
-        {
-            return new SolidColorBrush(Colors.Green);
-        }
+        if (status == "OK") return new SolidColorBrush(Colors.Green);
 
         return new SolidColorBrush(Colors.Red);
     }
@@ -290,12 +287,9 @@ public class ConfigViewModel : BindableBase
             IsFolderPicker = true
         };
 
-        if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
-        {
-            ProjectPath = dialog.FileName;
-        }
+        if (dialog.ShowDialog() == CommonFileDialogResult.Ok) ProjectPath = dialog.FileName;
 
-        Endpoints = _projectAnalyzerService.GetEndpoints(ProjectPath);
+        Endpoints = _analyzerService.GetEndpoints(ProjectPath);
     }
 
     private void ExecuteRemoveCommand(string obj)
@@ -337,20 +331,17 @@ public class ConfigViewModel : BindableBase
 
     private void InitializeEndpointStatus(Endpoint endpoint)
     {
-        if (endpoint == null)
-        {
-            return;
-        }
+        if (endpoint == null) return;
 
-        ControllerStatus = endpoint.ControllerFileExists;
-        RepositoryStatus = endpoint.RepositoryFileExists;
-        ServiceInterfaceStatus = endpoint.ServiceImplFileExists;
-        ServiceStatus = endpoint.ServiceFileExists;
-        AddRequestStatus = endpoint.AddRequestFileExists;
-        GetRequestStatus = endpoint.GetRequestFileExists;
-        EditRequestStatus = endpoint.EditRequestFileExists;
-        DeleteRequestStatus = endpoint.DeleteRequestFileExists;
-        SearchRequestStatus = endpoint.SearchRequestFileExists;
-        ResponseStatus = endpoint.ResponseFileExists;
+        ControllerStatus = endpoint.ControllerFileExists ? "OK" : "FEHLT";
+        RepositoryStatus = endpoint.RepositoryFileExists ? "OK" : "FEHLT";
+        ServiceInterfaceStatus = endpoint.ServiceImplFileExists ? "OK" : "FEHLT";
+        ServiceStatus = endpoint.ServiceFileExists ? "OK" : "FEHLT";
+        AddRequestStatus = endpoint.AddRequestFileExists ? "OK" : "FEHLT";
+        GetRequestStatus = endpoint.GetRequestFileExists ? "OK" : "FEHLT";
+        EditRequestStatus = endpoint.EditRequestFileExists ? "OK" : "FEHLT";
+        DeleteRequestStatus = endpoint.DeleteRequestFileExists ? "OK" : "FEHLT";
+        SearchRequestStatus = endpoint.SearchRequestFileExists ? "OK" : "FEHLT";
+        ResponseStatus = endpoint.ResponseFileExists ? "OK" : "FEHLT";
     }
 }

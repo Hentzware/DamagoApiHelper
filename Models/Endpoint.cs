@@ -24,49 +24,52 @@ public class Endpoint
 
     public bool ServiceImplFileExists => !string.IsNullOrEmpty(ServiceImplFilePath);
 
-    public string AddRequestFileName => AddRequestFilePath.Split('\\')[^1].Split('.')[0];
+    public string PackageName => ProjectPath.Split('\\')[^3] + "." + ProjectPath.Split('\\')[^2] + "." +
+                                 ProjectPath.Split('\\')[^1];
 
-    public string AddRequestFilePath { get; set; }
-
-    public string ControllerFileName => ControllerFilePath.Split('\\')[^1].Split('.')[0];
-
-    public string ControllerFilePath { get; set; }
-
-    public string DeleteRequestFileName => DeleteRequestFilePath.Split('\\')[^1].Split('.')[0];
-
-    public string DeleteRequestFilePath { get; set; }
-
-    public string EditRequestFileName => EditRequestFilePath.Split('\\')[^1].Split('.')[0];
-
-    public string EditRequestFilePath { get; set; }
-
-    public string EntityFileName => EntityFilePath.Split('\\')[^1].Split('.')[0];
-
-    public string EntityFilePath { get; set; }
-
-    public string GetRequestFileName => GetRequestFilePath.Split('\\')[^1].Split('.')[0];
-
-    public string GetRequestFilePath { get; set; }
-    
     public string ProjectPath { get; set; }
 
-    public string RepositoryFileName => RepositoryFilePath.Split('\\')[^1].Split('.')[0];
+    public string? AddRequestFileName => AddRequestFilePath?.Split('\\')[^1].Split('.')[0];
 
-    public string RepositoryFilePath { get; set; }
+    public string? AddRequestFilePath { get; set; }
 
-    public string ResponseFileName => ResponseFilePath.Split('\\')[^1].Split('.')[0];
+    public string? ControllerFileName => ControllerFilePath?.Split('\\')[^1].Split('.')[0];
 
-    public string ResponseFilePath { get; set; }
+    public string? ControllerFilePath { get; set; }
 
-    public string SearchRequestFileName => SearchRequestFilePath.Split('\\')[^1].Split('.')[0];
+    public string? DeleteRequestFileName => DeleteRequestFilePath?.Split('\\')[^1].Split('.')[0];
 
-    public string SearchRequestFilePath { get; set; }
+    public string? DeleteRequestFilePath { get; set; }
 
-    public string ServiceFileName => ServiceFilePath.Split('\\')[^1].Split('.')[0];
+    public string? EditRequestFileName => EditRequestFilePath?.Split('\\')[^1].Split('.')[0];
 
-    public string ServiceFilePath { get; set; }
+    public string? EditRequestFilePath { get; set; }
 
-    public string ServiceImplFileName => ServiceImplFilePath.Split('\\')[^1].Split('.')[0];
+    public string? EntityFileName => EntityFilePath?.Split('\\')[^1].Split('.')[0];
 
-    public string ServiceImplFilePath { get; set; }
+    public string? EntityFilePath { get; set; }
+
+    public string? GetRequestFileName => GetRequestFilePath?.Split('\\')[^1].Split('.')[0];
+
+    public string? GetRequestFilePath { get; set; }
+
+    public string? RepositoryFileName => RepositoryFilePath?.Split('\\')[^1].Split('.')[0];
+
+    public string? RepositoryFilePath { get; set; }
+
+    public string? ResponseFileName => ResponseFilePath?.Split('\\')[^1].Split('.')[0];
+
+    public string? ResponseFilePath { get; set; }
+
+    public string? SearchRequestFileName => SearchRequestFilePath?.Split('\\')[^1].Split('.')[0];
+
+    public string? SearchRequestFilePath { get; set; }
+
+    public string? ServiceFileName => ServiceFilePath?.Split('\\')[^1].Split('.')[0];
+
+    public string? ServiceFilePath { get; set; }
+
+    public string? ServiceImplFileName => ServiceImplFilePath?.Split('\\')[^1].Split('.')[0];
+
+    public string? ServiceImplFilePath { get; set; }
 }
