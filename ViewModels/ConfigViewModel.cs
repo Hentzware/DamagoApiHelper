@@ -39,10 +39,19 @@ public class ConfigViewModel : BindableBase
     private SolidColorBrush _serviceStatusColor = new(Colors.Gray);
     private string _projectPath;
 
-    public ConfigViewModel(IAnalyzerService analyzerService, ITextService textService)
+    private Dictionary<string, string> replacementDictionary = new Dictionary<string, string>()
+    {
+        {"{{projectPath}}", "org.damago.damagodatenbankapi"},
+        {"{{EntityName}}", "Entity"},
+        {"{{EntityNames}}", "Entities"},
+        {"{{entityName}}", "entity"},
+        {"{{entityNames}}", "entities"}
+    };
+
+    public ConfigViewModel(IAnalyzerService analyzerService, IEndpointService endpointService)
     {
         _analyzerService = analyzerService;
-        _endpointService = new EndpointService();
+        _endpointService = endpointService;
     }
 
     public string AddRequestStatus
@@ -248,34 +257,34 @@ public class ConfigViewModel : BindableBase
         switch (obj)
         {
             case "Controller":
-                _endpointService.AddController();
+                _endpointService.AddController(SelectedEndpoint, replacementDictionary);
                 break;
             case "AddRequest":
-                _endpointService.AddAddRequest();
+                _endpointService.AddAddRequest(SelectedEndpoint, replacementDictionary);
                 break;
             case "EditRequest":
-                _endpointService.AddEditRequest();
+                _endpointService.AddEditRequest(SelectedEndpoint, replacementDictionary);
                 break;
             case "DeleteRequest":
-                _endpointService.AddDeleteRequest();
+                _endpointService.AddDeleteRequest(SelectedEndpoint, replacementDictionary);
                 break;
             case "GetRequest":
-                _endpointService.AddGetRequest();
+                _endpointService.AddGetRequest(SelectedEndpoint, replacementDictionary);
                 break;
             case "SearchRequest":
-                _endpointService.AddSearchRequest();
+                _endpointService.AddSearchRequest(SelectedEndpoint, replacementDictionary);
                 break;
             case "Response":
-                _endpointService.AddResponse();
+                _endpointService.AddResponse(SelectedEndpoint, replacementDictionary);
                 break;
             case "Service":
-                _endpointService.AddService();
+                _endpointService.AddService(SelectedEndpoint, replacementDictionary);
                 break;
             case "ServiceImpl":
-                _endpointService.AddServiceImpl();
+                _endpointService.AddServiceImpl(SelectedEndpoint, replacementDictionary);
                 break;
             case "Repository":
-                _endpointService.AddRepository();
+                _endpointService.AddRepository(SelectedEndpoint, replacementDictionary);
                 break;
         }
     }
@@ -297,34 +306,34 @@ public class ConfigViewModel : BindableBase
         switch (obj)
         {
             case "Controller":
-                _endpointService.RemoveController();
+                _endpointService.RemoveController(SelectedEndpoint);
                 break;
             case "AddRequest":
-                _endpointService.RemoveAddRequest();
+                _endpointService.RemoveAddRequest(SelectedEndpoint);
                 break;
             case "EditRequest":
-                _endpointService.RemoveEditRequest();
+                _endpointService.RemoveEditRequest(SelectedEndpoint);
                 break;
             case "DeleteRequest":
-                _endpointService.RemoveDeleteRequest();
+                _endpointService.RemoveDeleteRequest(SelectedEndpoint);
                 break;
             case "GetRequest":
-                _endpointService.RemoveGetRequest();
+                _endpointService.RemoveGetRequest(SelectedEndpoint);
                 break;
             case "SearchRequest":
-                _endpointService.RemoveSearchRequest();
+                _endpointService.RemoveSearchRequest(SelectedEndpoint);
                 break;
             case "Response":
-                _endpointService.RemoveResponse();
+                _endpointService.RemoveResponse(SelectedEndpoint);
                 break;
             case "Service":
-                _endpointService.RemoveService();
+                _endpointService.RemoveService(SelectedEndpoint);
                 break;
             case "ServiceImpl":
-                _endpointService.RemoveServiceImpl();
+                _endpointService.RemoveServiceImpl(SelectedEndpoint);
                 break;
             case "Repository":
-                _endpointService.RemoveRepository();
+                _endpointService.RemoveRepository(SelectedEndpoint);
                 break;
         }
     }

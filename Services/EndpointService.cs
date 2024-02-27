@@ -18,52 +18,61 @@ public class EndpointService : IEndpointService
     public void AddAddRequest(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
     {
         var template = _templateService.LoadAddRequestTemplate();
-        
+        template = _textService.ReplaceText(template, replacementDictionary);
     }
 
     public void AddController(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
     {
-        throw new NotImplementedException();
+        var template = _templateService.LoadControllerTemplate();
+        template = _textService.ReplaceText(template, replacementDictionary);
     }
 
     public void AddDeleteRequest(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
     {
-        throw new NotImplementedException();
+        var template = _templateService.LoadDeleteRequestTemplate();
+        template = _textService.ReplaceText(template, replacementDictionary);
     }
 
     public void AddEditRequest(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
     {
-        throw new NotImplementedException();
+        var template = _templateService.LoadEditRequestTemplate();
+        template = _textService.ReplaceText(template, replacementDictionary);
     }
 
     public void AddGetRequest(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
     {
-        throw new NotImplementedException();
+        var template = _templateService.LoadGetRequestTemplate();
+        template = _textService.ReplaceText(template, replacementDictionary);
     }
 
     public void AddRepository(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
     {
-        throw new NotImplementedException();
+        var template = _templateService.LoadRepositoryTemplate();
+        template = _textService.ReplaceText(template, replacementDictionary);
     }
 
     public void AddResponse(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
     {
-        throw new NotImplementedException();
+        var template = _templateService.LoadResponseTemplate();
+        template = _textService.ReplaceText(template, replacementDictionary);
     }
 
     public void AddSearchRequest(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
     {
-        throw new NotImplementedException();
+        var template = _templateService.LoadSearchRequestTemplate();
+        template = _textService.ReplaceText(template, replacementDictionary);
     }
 
     public void AddService(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
     {
-        throw new NotImplementedException();
+        var template = _templateService.LoadServiceTemplate();
+        template = _textService.ReplaceText(template, replacementDictionary);
     }
 
     public void AddServiceImpl(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
     {
-        throw new NotImplementedException();
+        var template = _templateService.LoadServiceImplTemplate();
+        template = _textService.ReplaceText(template, replacementDictionary);
     }
 
     public void RemoveAddRequest(Endpoint endpoint)
