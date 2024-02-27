@@ -17,6 +17,7 @@ namespace DamagoApiHelper
         {
             containerRegistry.RegisterScoped<ITextReplaceService, TextReplaceService>();
             containerRegistry.RegisterScoped<IProjectAnalyzerService, ProjectAnalyzerService>();
+            containerRegistry.RegisterScoped<IEndpointService, EndpointService>();
         }
 
         protected override DependencyObject CreateShell()

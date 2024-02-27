@@ -67,5 +67,50 @@ namespace DamagoApiHelper.Services
                 }
             }
         }
+
+        public string GetAddRequestText()
+        {
+            return _templateFiles["AddRequest"];
+        }
+
+        public string GetDeleteRequestText()
+        {
+            return _templateFiles["DeleteRequest"];
+        }
+
+        public string GetSearchRequestText()
+        {
+            return _templateFiles["SearchRequest"];
+        }
+
+        public string GetEditRequestText()
+        {
+            return _templateFiles["EditRequest"];
+        }
+
+        public string GetServiceText()
+        {
+            return _templateFiles["Service"];
+        }
+
+        public string GetServiceImplText()
+        {
+            return _templateFiles["ServiceImpl"];
+        }
+
+        public string GetControllerText()
+        {
+            return _templateFiles["Controller"];
+        }
+
+        public string GetGetRequestText()
+        {
+            return _templateFiles["GetRequest"];
+        }
+
+        public string GetRepositoryText()
+        {
+            return _templateFiles["Repository"];
+        }
     }
 }
