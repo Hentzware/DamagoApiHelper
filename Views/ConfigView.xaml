@@ -6,326 +6,343 @@
     xmlns:local="clr-namespace:DamagoApiHelper.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:Background="White"
-    d:DesignHeight="600"
+    d:DesignHeight="700"
     d:DesignWidth="1000"
     mc:Ignorable="d">
     <StackPanel Orientation="Horizontal">
         <StackPanel Width="300" Orientation="Vertical">
-            <Label
-                Margin="0,10,0,0"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center"
-                Content="Projekt" />
-            <TextBox
-                Margin="20,10,20,0"
-                VerticalAlignment="Top"
-                VerticalContentAlignment="Center"
-                d:Text="Test"
-                Text="{Binding ProjectPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Button
-                Width="200"
-                Margin="0,10,0,0"
-                HorizontalAlignment="Center"
-                Command="{Binding ProjectPathSearchCommand}"
-                Content="Durchsuchen" />
-            <ListBox
-                MinHeight="300"
-                MaxHeight="300"
-                Margin="20,20,20,0"
-                DisplayMemberPath="EntityFileName"
-                ItemsSource="{Binding Endpoints, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                SelectedItem="{Binding SelectedEndpoint, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Label
-                Margin="0,20,0,0"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center"
-                Content="Neue Klasse erstellen" />
-            <TextBox
-                Margin="20,10,20,0"
-                VerticalAlignment="Top"
-                VerticalContentAlignment="Center"
-                d:Text="Test"
-                Text="{Binding ProjectPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Button
-                Width="200"
-                Margin="0,10,0,0"
-                HorizontalAlignment="Center"
-                Command="{Binding ProjectPathSearchCommand}"
-                Content="Durchsuchen" />
+            <GroupBox
+                Margin="10,10,0,0"
+                Padding="20"
+                Header="Projekt">
+                <StackPanel Orientation="Vertical">
+                    <TextBox
+                        Margin="0,0,0,10"
+                        VerticalAlignment="Top"
+                        VerticalContentAlignment="Center"
+                        d:Text="Test"
+                        Text="{Binding ProjectPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button Command="{Binding ProjectPathSearchCommand}" Content="Durchsuchen" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox
+                Margin="10,10,0,0"
+                Padding="20"
+                Header="Klassen">
+                <StackPanel Orientation="Vertical">
+                    <ListBox
+                        MinHeight="300"
+                        MaxHeight="300"
+                        DisplayMemberPath="EntityFileName"
+                        ItemsSource="{Binding Endpoints, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding SelectedEndpoint, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox
+                        VerticalAlignment="Top"
+                        VerticalContentAlignment="Center"
+                        d:Text="Test"
+                        Text="{Binding EntityName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button Command="{Binding AddEntityCommand}" Content="Hinzufügen" />
+                    <Button Command="{Binding RemoveEntityCommand}" Content="Entfernen" />
+                </StackPanel>
+            </GroupBox>
         </StackPanel>
-        <StackPanel Orientation="Vertical" Margin="0,45,0,0">
-            <StackPanel Orientation="Horizontal">
-                <Label Width="120"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Content="Controller" />
-                <Label
-                    Width="100"
-                    VerticalAlignment="Center"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    d:Background="Green"
-                    d:Content="OK"
-                    Background="{Binding ControllerStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Content="{Binding ControllerStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <Button
-                    Width="90" Margin="10,0"
-                    VerticalAlignment="Center"
-                    Command="{Binding AddCommand}"
-                    CommandParameter="Controller"
-                    Content="Hinzufügen" />
-                <Button
-                    Width="90"
-                    VerticalAlignment="Center"
-                    Command="{Binding RemoveCommand}"
-                    CommandParameter="Controller"
-                    Content="Entfernen" />
+        <GroupBox
+            Margin="10,10,0,0"
+            Padding="20"
+            Header="Endpunkte">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <Label
+                        Width="120"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Content="Controller" />
+                    <Label
+                        Width="100"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        d:Background="Green"
+                        d:Content="OK"
+                        Background="{Binding ControllerStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Content="{Binding ControllerStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button
+                        Width="90"
+                        Margin="10,0"
+                        VerticalAlignment="Center"
+                        Command="{Binding AddCommand}"
+                        CommandParameter="Controller"
+                        Content="Hinzufügen" />
+                    <Button
+                        Width="90"
+                        VerticalAlignment="Center"
+                        Command="{Binding RemoveCommand}"
+                        CommandParameter="Controller"
+                        Content="Entfernen" />
+                </StackPanel>
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <Label
+                        Width="120"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Content="Service Interface" />
+                    <Label
+                        Width="100"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        d:Background="Red"
+                        d:Content="FEHLER"
+                        Background="{Binding ServiceInterfaceStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Content="{Binding ServiceInterfaceStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button
+                        Width="90"
+                        Margin="10,0"
+                        VerticalAlignment="Center"
+                        Command="{Binding AddCommand}"
+                        CommandParameter="Service"
+                        Content="Hinzufügen" />
+                    <Button
+                        Width="90"
+                        VerticalAlignment="Center"
+                        Command="{Binding RemoveCommand}"
+                        CommandParameter="Service"
+                        Content="Entfernen" />
+                </StackPanel>
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <Label
+                        Width="120"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Content="Service" />
+                    <Label
+                        Width="100"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        d:Background="Green"
+                        d:Content="OK"
+                        Background="{Binding ServiceStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Content="{Binding ServiceStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button
+                        Width="90"
+                        Margin="10,0"
+                        VerticalAlignment="Center"
+                        Command="{Binding AddCommand}"
+                        CommandParameter="ServiceImpl"
+                        Content="Hinzufügen" />
+                    <Button
+                        Width="90"
+                        VerticalAlignment="Center"
+                        Command="{Binding RemoveCommand}"
+                        CommandParameter="ServiceImpl"
+                        Content="Entfernen" />
+                </StackPanel>
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <Label
+                        Width="120"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Content="Repository" />
+                    <Label
+                        Width="100"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        d:Background="Green"
+                        d:Content="OK"
+                        Background="{Binding RepositoryStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Content="{Binding RepositoryStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button
+                        Width="90"
+                        Margin="10,0"
+                        VerticalAlignment="Center"
+                        Command="{Binding AddCommand}"
+                        CommandParameter="Repository"
+                        Content="Hinzufügen" />
+                    <Button
+                        Width="90"
+                        VerticalAlignment="Center"
+                        Command="{Binding RemoveCommand}"
+                        CommandParameter="Repository"
+                        Content="Entfernen" />
+                </StackPanel>
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <Label
+                        Width="120"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Content="Get Request" />
+                    <Label
+                        Width="100"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        d:Background="Green"
+                        d:Content="OK"
+                        Background="{Binding GetRequestStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Content="{Binding GetRequestStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button
+                        Width="90"
+                        Margin="10,0"
+                        VerticalAlignment="Center"
+                        Command="{Binding AddCommand}"
+                        CommandParameter="GetRequest"
+                        Content="Hinzufügen" />
+                    <Button
+                        Width="90"
+                        VerticalAlignment="Center"
+                        Command="{Binding RemoveCommand}"
+                        CommandParameter="GetRequest"
+                        Content="Entfernen" />
+                </StackPanel>
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <Label
+                        Width="120"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Content="Add Request" />
+                    <Label
+                        Width="100"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        d:Background="Green"
+                        d:Content="OK"
+                        Background="{Binding AddRequestStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Content="{Binding AddRequestStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button
+                        Width="90"
+                        Margin="10,0"
+                        VerticalAlignment="Center"
+                        Command="{Binding AddCommand}"
+                        CommandParameter="AddRequest"
+                        Content="Hinzufügen" />
+                    <Button
+                        Width="90"
+                        VerticalAlignment="Center"
+                        Command="{Binding RemoveCommand}"
+                        CommandParameter="AddRequest"
+                        Content="Entfernen" />
+                </StackPanel>
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <Label
+                        Width="120"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Content="Edit Request" />
+                    <Label
+                        Width="100"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        d:Background="Green"
+                        d:Content="OK"
+                        Background="{Binding EditRequestStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Content="{Binding EditRequestStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button
+                        Width="90"
+                        Margin="10,0"
+                        VerticalAlignment="Center"
+                        Command="{Binding AddCommand}"
+                        CommandParameter="EditRequest"
+                        Content="Hinzufügen" />
+                    <Button
+                        Width="90"
+                        VerticalAlignment="Center"
+                        Command="{Binding RemoveCommand}"
+                        CommandParameter="EditRequest"
+                        Content="Entfernen" />
+                </StackPanel>
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <Label
+                        Width="120"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Content="Delete Request" />
+                    <Label
+                        Width="100"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        d:Background="Green"
+                        d:Content="OK"
+                        Background="{Binding DeleteRequestStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Content="{Binding DeleteRequestStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button
+                        Width="90"
+                        Margin="10,0"
+                        VerticalAlignment="Center"
+                        Command="{Binding AddCommand}"
+                        CommandParameter="DeleteRequest"
+                        Content="Hinzufügen" />
+                    <Button
+                        Width="90"
+                        VerticalAlignment="Center"
+                        Command="{Binding RemoveCommand}"
+                        CommandParameter="DeleteRequest"
+                        Content="Entfernen" />
+                </StackPanel>
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <Label
+                        Width="120"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Content="Search Request" />
+                    <Label
+                        Width="100"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        d:Background="Green"
+                        d:Content="OK"
+                        Background="{Binding SearchRequestStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Content="{Binding SearchRequestStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button
+                        Width="90"
+                        Margin="10,0"
+                        VerticalAlignment="Center"
+                        Command="{Binding AddCommand}"
+                        CommandParameter="SearchRequest"
+                        Content="Hinzufügen" />
+                    <Button
+                        Width="90"
+                        VerticalAlignment="Center"
+                        Command="{Binding RemoveCommand}"
+                        CommandParameter="SearchRequest"
+                        Content="Entfernen" />
+                </StackPanel>
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <Label
+                        Width="120"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Content="Response" />
+                    <Label
+                        Width="100"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        d:Background="Green"
+                        d:Content="OK"
+                        Background="{Binding ResponseStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Content="{Binding ResponseStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button
+                        Width="90"
+                        Margin="10,0"
+                        VerticalAlignment="Center"
+                        Command="{Binding AddCommand}"
+                        CommandParameter="Response"
+                        Content="Hinzufügen" />
+                    <Button
+                        Width="90"
+                        VerticalAlignment="Center"
+                        Command="{Binding RemoveCommand}"
+                        CommandParameter="Response"
+                        Content="Entfernen" />
+                </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,10, 0, 0">
-                <Label
-                    Width="120"
-                    VerticalAlignment="Center"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Content="Service Interface" />
-                <Label
-                    Width="100"
-                    VerticalAlignment="Center"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    d:Background="Red"
-                    d:Content="FEHLER"
-                    Background="{Binding ServiceInterfaceStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Content="{Binding ServiceInterfaceStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <Button
-                    Width="90" Margin="10,0"
-                    VerticalAlignment="Center"
-                    Command="{Binding AddCommand}"
-                    CommandParameter="Service"
-                    Content="Hinzufügen" />
-                <Button
-                    Width="90"
-                    VerticalAlignment="Center"
-                    Command="{Binding RemoveCommand}"
-                    CommandParameter="Service"
-                    Content="Entfernen" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,10, 0, 0">
-                <Label Width="120"
-                       HorizontalContentAlignment="Center"
-                       VerticalContentAlignment="Center"
-                       Content="Service" />
-                <Label
-                    Width="100"
-                    VerticalAlignment="Center"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    d:Background="Green"
-                    d:Content="OK"
-                    Background="{Binding ServiceStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Content="{Binding ServiceStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <Button
-                    Width="90" Margin="10,0"
-                    VerticalAlignment="Center"
-                    Command="{Binding AddCommand}"
-                    CommandParameter="ServiceImpl"
-                    Content="Hinzufügen" />
-                <Button
-                    Width="90"
-                    VerticalAlignment="Center"
-                    Command="{Binding RemoveCommand}"
-                    CommandParameter="ServiceImpl"
-                    Content="Entfernen" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,10, 0, 0">
-                <Label Width="120"
-                       HorizontalContentAlignment="Center"
-                       VerticalContentAlignment="Center"
-                       Content="Repository" />
-                <Label
-                    Width="100"
-                    VerticalAlignment="Center"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    d:Background="Green"
-                    d:Content="OK"
-                    Background="{Binding RepositoryStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Content="{Binding RepositoryStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <Button
-                    Width="90" Margin="10,0"
-                    VerticalAlignment="Center"
-                    Command="{Binding AddCommand}"
-                    CommandParameter="Repository"
-                    Content="Hinzufügen" />
-                <Button
-                    Width="90"
-                    VerticalAlignment="Center"
-                    Command="{Binding RemoveCommand}"
-                    CommandParameter="Repository"
-                    Content="Entfernen" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,10, 0, 0">
-                <Label Width="120"
-                       HorizontalContentAlignment="Center"
-                       VerticalContentAlignment="Center"
-                       Content="Get Request" />
-                <Label
-                    Width="100"
-                    VerticalAlignment="Center"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    d:Background="Green"
-                    d:Content="OK"
-                    Background="{Binding GetRequestStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Content="{Binding GetRequestStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <Button
-                    Width="90" Margin="10,0"
-                    VerticalAlignment="Center"
-                    Command="{Binding AddCommand}"
-                    CommandParameter="GetRequest"
-                    Content="Hinzufügen" />
-                <Button
-                    Width="90"
-                    VerticalAlignment="Center"
-                    Command="{Binding RemoveCommand}"
-                    CommandParameter="GetRequest"
-                    Content="Entfernen" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,10, 0, 0">
-                <Label Width="120"
-                       HorizontalContentAlignment="Center"
-                       VerticalContentAlignment="Center"
-                       Content="Add Request" />
-                <Label
-                    Width="100"
-                    VerticalAlignment="Center"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    d:Background="Green"
-                    d:Content="OK"
-                    Background="{Binding AddRequestStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Content="{Binding AddRequestStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <Button
-                    Width="90" Margin="10,0"
-                    VerticalAlignment="Center"
-                    Command="{Binding AddCommand}"
-                    CommandParameter="AddRequest"
-                    Content="Hinzufügen" />
-                <Button
-                    Width="90"
-                    VerticalAlignment="Center"
-                    Command="{Binding RemoveCommand}"
-                    CommandParameter="AddRequest"
-                    Content="Entfernen" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,10, 0, 0">
-                <Label Width="120"
-                       HorizontalContentAlignment="Center"
-                       VerticalContentAlignment="Center"
-                       Content="Edit Request" />
-                <Label
-                    Width="100"
-                    VerticalAlignment="Center"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    d:Background="Green"
-                    d:Content="OK"
-                    Background="{Binding EditRequestStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Content="{Binding EditRequestStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <Button
-                    Width="90" Margin="10,0"
-                    VerticalAlignment="Center"
-                    Command="{Binding AddCommand}"
-                    CommandParameter="EditRequest"
-                    Content="Hinzufügen" />
-                <Button
-                    Width="90"
-                    VerticalAlignment="Center"
-                    Command="{Binding RemoveCommand}"
-                    CommandParameter="EditRequest"
-                    Content="Entfernen" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,10, 0, 0">
-                <Label Width="120"
-                       HorizontalContentAlignment="Center"
-                       VerticalContentAlignment="Center"
-                       Content="Delete Request" />
-                <Label
-                    Width="100"
-                    VerticalAlignment="Center"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    d:Background="Green"
-                    d:Content="OK"
-                    Background="{Binding DeleteRequestStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Content="{Binding DeleteRequestStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <Button
-                    Width="90" Margin="10,0"
-                    VerticalAlignment="Center"
-                    Command="{Binding AddCommand}"
-                    CommandParameter="DeleteRequest"
-                    Content="Hinzufügen" />
-                <Button
-                    Width="90"
-                    VerticalAlignment="Center"
-                    Command="{Binding RemoveCommand}"
-                    CommandParameter="DeleteRequest"
-                    Content="Entfernen" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,10, 0, 0">
-                <Label Width="120"
-                       HorizontalContentAlignment="Center"
-                       VerticalContentAlignment="Center"
-                       Content="Search Request" />
-                <Label
-                    Width="100"
-                    VerticalAlignment="Center"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    d:Background="Green"
-                    d:Content="OK"
-                    Background="{Binding SearchRequestStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Content="{Binding SearchRequestStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <Button
-                    Width="90" Margin="10,0"
-                    VerticalAlignment="Center"
-                    Command="{Binding AddCommand}"
-                    CommandParameter="SearchRequest"
-                    Content="Hinzufügen" />
-                <Button
-                    Width="90"
-                    VerticalAlignment="Center"
-                    Command="{Binding RemoveCommand}"
-                    CommandParameter="SearchRequest"
-                    Content="Entfernen" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,10, 0, 0">
-                <Label Width="120"
-                       HorizontalContentAlignment="Center"
-                       VerticalContentAlignment="Center"
-                       Content="Response" />
-                <Label
-                    Width="100"
-                    VerticalAlignment="Center"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    d:Background="Green"
-                    d:Content="OK"
-                    Background="{Binding ResponseStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Content="{Binding ResponseStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <Button
-                    Width="90" Margin="10,0"
-                    VerticalAlignment="Center"
-                    Command="{Binding AddCommand}"
-                    CommandParameter="Response"
-                    Content="Hinzufügen" />
-                <Button
-                    Width="90"
-                    VerticalAlignment="Center"
-                    Command="{Binding RemoveCommand}"
-                    CommandParameter="Response"
-                    Content="Entfernen" />
-            </StackPanel>
-        </StackPanel>
+        </GroupBox>
     </StackPanel>
 </UserControl>
