@@ -20,7 +20,8 @@ public class EndpointService : IEndpointService
     {
         var template = _templateService.LoadAddRequestTemplate();
         template = _textService.ReplaceText(template, replacementDictionary);
-        WriteTemplateFile(template, $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Add{endpoint.EntityFileName}Request.java");
+        WriteTemplateFile(template,
+            $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Add{endpoint.EntityFileName}Request.java");
     }
 
     public void AddController(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
@@ -34,21 +35,31 @@ public class EndpointService : IEndpointService
     {
         var template = _templateService.LoadDeleteRequestTemplate();
         template = _textService.ReplaceText(template, replacementDictionary);
-        WriteTemplateFile(template, $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Delete{endpoint.EntityFileName}Request.java");
+        WriteTemplateFile(template,
+            $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Delete{endpoint.EntityFileName}Request.java");
     }
 
     public void AddEditRequest(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
     {
         var template = _templateService.LoadEditRequestTemplate();
         template = _textService.ReplaceText(template, replacementDictionary);
-        WriteTemplateFile(template, $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Edit{endpoint.EntityFileName}Request.java");
+        WriteTemplateFile(template,
+            $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Edit{endpoint.EntityFileName}Request.java");
+    }
+
+    public void AddEntity(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
+    {
+        var template = _templateService.LoadEntityTemplate();
+        template = _textService.ReplaceText(template, replacementDictionary);
+        WriteTemplateFile(template, $"{endpoint.ProjectPath}\\entities\\{endpoint.EntityFileName}.java");
     }
 
     public void AddGetRequest(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
     {
         var template = _templateService.LoadGetRequestTemplate();
         template = _textService.ReplaceText(template, replacementDictionary);
-        WriteTemplateFile(template, $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Get{endpoint.EntityFileName}Request.java");
+        WriteTemplateFile(template,
+            $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Get{endpoint.EntityFileName}Request.java");
     }
 
     public void AddRepository(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
@@ -69,7 +80,8 @@ public class EndpointService : IEndpointService
     {
         var template = _templateService.LoadSearchRequestTemplate();
         template = _textService.ReplaceText(template, replacementDictionary);
-        WriteTemplateFile(template, $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Search{endpoint.EntityFileName}Request.java");
+        WriteTemplateFile(template,
+            $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Search{endpoint.EntityFileName}Request.java");
     }
 
     public void AddService(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
@@ -88,7 +100,8 @@ public class EndpointService : IEndpointService
 
     public void RemoveAddRequest(Endpoint endpoint)
     {
-        RemoveTemplateFile($"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Add{endpoint.EntityFileName}Request.java");
+        RemoveTemplateFile(
+            $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Add{endpoint.EntityFileName}Request.java");
     }
 
     public void RemoveController(Endpoint endpoint)
@@ -98,17 +111,25 @@ public class EndpointService : IEndpointService
 
     public void RemoveDeleteRequest(Endpoint endpoint)
     {
-        RemoveTemplateFile($"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Delete{endpoint.EntityFileName}Request.java");
+        RemoveTemplateFile(
+            $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Delete{endpoint.EntityFileName}Request.java");
     }
 
     public void RemoveEditRequest(Endpoint endpoint)
     {
-        RemoveTemplateFile($"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Edit{endpoint.EntityFileName}Request.java");
+        RemoveTemplateFile(
+            $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Edit{endpoint.EntityFileName}Request.java");
+    }
+
+    public void RemoveEntity(Endpoint endpoint)
+    {
+        
     }
 
     public void RemoveGetRequest(Endpoint endpoint)
     {
-        RemoveTemplateFile($"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Get{endpoint.EntityFileName}Request.java");
+        RemoveTemplateFile(
+            $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Get{endpoint.EntityFileName}Request.java");
     }
 
     public void RemoveRepository(Endpoint endpoint)
@@ -123,7 +144,8 @@ public class EndpointService : IEndpointService
 
     public void RemoveSearchRequest(Endpoint endpoint)
     {
-        RemoveTemplateFile($"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Search{endpoint.EntityFileName}Request.java");
+        RemoveTemplateFile(
+            $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Search{endpoint.EntityFileName}Request.java");
     }
 
     public void RemoveService(Endpoint endpoint)
@@ -136,10 +158,14 @@ public class EndpointService : IEndpointService
         RemoveTemplateFile($"{endpoint.ProjectPath}\\services\\{endpoint.EntityFileName}ServiceImpl.java");
     }
 
-    private void WriteTemplateFile(string template, string filePath)
+    public void AddEndpoint(Endpoint endpoint)
     {
-        RemoveTemplateFile(filePath);
-        File.WriteAllText(filePath, template);
+        
+    }
+
+    public void RemoveEndpoint(Endpoint endpoint)
+    {
+        
     }
 
     private void RemoveTemplateFile(string filePath)
@@ -148,5 +174,11 @@ public class EndpointService : IEndpointService
         {
             File.Delete(filePath);
         }
+    }
+
+    private void WriteTemplateFile(string template, string filePath)
+    {
+        RemoveTemplateFile(filePath);
+        File.WriteAllText(filePath, template);
     }
 }

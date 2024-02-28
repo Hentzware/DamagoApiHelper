@@ -6,12 +6,16 @@ namespace DamagoApiHelper.Services;
 public interface IEndpointService
 {
     void AddAddRequest(Endpoint endpoint, Dictionary<string, string> replacementDictionary);
-    
+
     void AddController(Endpoint endpoint, Dictionary<string, string> replacementDictionary);
 
     void AddDeleteRequest(Endpoint endpoint, Dictionary<string, string> replacementDictionary);
 
     void AddEditRequest(Endpoint endpoint, Dictionary<string, string> replacementDictionary);
+
+    void AddEndpoint(Endpoint endpoint);
+    
+    void AddEntity(Endpoint endpoint, Dictionary<string, string> replacementDictionary);
 
     void AddGetRequest(Endpoint endpoint, Dictionary<string, string> replacementDictionary);
 
@@ -32,6 +36,10 @@ public interface IEndpointService
     void RemoveDeleteRequest(Endpoint endpoint);
 
     void RemoveEditRequest(Endpoint endpoint);
+
+    void RemoveEndpoint(Endpoint endpoint);
+    
+    void RemoveEntity(Endpoint endpoint);
 
     void RemoveGetRequest(Endpoint endpoint);
 
