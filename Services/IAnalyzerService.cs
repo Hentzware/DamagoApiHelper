@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,6 @@ namespace DamagoApiHelper.Services
 {
     public interface IAnalyzerService
     {
-        List<Endpoint> GetEndpoints(string projectPath);
+        ObservableCollection<Endpoint> GetEndpoints(string projectPath);
     }
 }

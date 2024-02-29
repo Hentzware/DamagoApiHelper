@@ -7,8 +7,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
     Title="ShellView"
-    Width="800"
-    Height="450"
+    Width="850"
+    Height="650"
+    ResizeMode="NoResize"
     mc:Ignorable="d">
     <Grid>
         <ContentControl prism:RegionManager.RegionName="MainRegion" />

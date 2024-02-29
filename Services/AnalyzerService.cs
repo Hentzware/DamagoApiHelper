@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using DamagoApiHelper.Models;
+using Microsoft.WindowsAPICodePack.Shell.Interop;
 
 namespace DamagoApiHelper.Services;
 
@@ -15,13 +18,18 @@ public class AnalyzerService : IAnalyzerService
     private string _responsesPath = string.Empty;
     private string _servicesPath = string.Empty;
 
-    public List<Endpoint> GetEndpoints(string projectPath)
+    public ObservableCollection<Endpoint> GetEndpoints(string projectPath)
     {
         CreatePaths(projectPath);
         CreateDirectories();
 
-        var endpoints = new List<Endpoint>();
-        var entities = Directory.EnumerateFiles(_entitiesPath);
+        var endpoints = new ObservableCollection<Endpoint>();
+        var entities = new List<string>();
+
+        if (Directory.Exists(_entitiesPath))
+        {
+            entities = Directory.EnumerateFiles(_entitiesPath).ToList();
+        }
 
         foreach (var entity in entities)
         {
@@ -121,7 +129,12 @@ public class AnalyzerService : IAnalyzerService
 
     private void CreateDirectory(string path)
     {
-        if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+        if (!Directory.Exists(path))
+        {
+            if (MessageBox.Show($"Das Verzeichnis {path} existiert nicht. Soll das Verzeichnis erstellt werden?", "Achtung!", MessageBoxButton.YesNo) == MessageBoxResult.No) return;
+            
+            Directory.CreateDirectory(path);
+        }
     }
 
     private void CreatePaths(string projectPath)
