@@ -32,5 +32,5 @@ public interface {{EntityName}}Repository extends JpaRepository<{{EntityName}}, 
     void sp_{{EntityNames}}_Undelete(String id);
 
     @Procedure
-    void sp_{{EntityNames}}_Update();
+    void sp_{{EntityNames}}_Update(String id);
 }

@@ -12,15 +12,6 @@ namespace DamagoApiHelper.ViewModels;
 
 public class ConfigViewModel : BindableBase
 {
-    private readonly Dictionary<string, string> replacementDictionary = new()
-    {
-        { "{{projectPath}}", "org.damago.damagodatenbankapi" },
-        { "{{EntityName}}", "Entity" },
-        { "{{EntityNames}}", "Entities" },
-        { "{{entityName}}", "entity" },
-        { "{{entityNames}}", "entities" }
-    };
-
     private readonly IAnalyzerService _analyzerService;
     private readonly IEndpointService _endpointService;
     private bool _addRequestAddButtonEnabled;
@@ -82,7 +73,9 @@ public class ConfigViewModel : BindableBase
 
     public bool AddRequestAddButtonEnabled
     {
-        get => !_selectedEndpoint?.AddRequestFileExists ?? false;
+        get =>
+            (!_selectedEndpoint?.AddRequestFileExists ?? false) &&
+            !string.IsNullOrEmpty(EntityNamePlural);
         set => SetProperty(ref _addRequestAddButtonEnabled, value);
     }
 
@@ -94,7 +87,9 @@ public class ConfigViewModel : BindableBase
 
     public bool ControllerAddButtonEnabled
     {
-        get => !_selectedEndpoint?.ControllerFileExists ?? false;
+        get =>
+            (!_selectedEndpoint?.ControllerFileExists ?? false) &&
+            !string.IsNullOrEmpty(EntityNamePlural);
         set => SetProperty(ref _controllerAddButtonEnabled, value);
     }
 
@@ -106,7 +101,9 @@ public class ConfigViewModel : BindableBase
 
     public bool DeleteRequestAddButtonEnabled
     {
-        get => !_selectedEndpoint?.DeleteRequestFileExists ?? false;
+        get =>
+            (!_selectedEndpoint?.DeleteRequestFileExists ?? false) &&
+            !string.IsNullOrEmpty(EntityNamePlural);
         set => SetProperty(ref _deleteRequestAddButtonEnabled, value);
     }
 
@@ -118,7 +115,9 @@ public class ConfigViewModel : BindableBase
 
     public bool EditRequestAddButtonEnabled
     {
-        get => !_selectedEndpoint?.EditRequestFileExists ?? false;
+        get =>
+            (!_selectedEndpoint?.EditRequestFileExists ?? false) &&
+            !string.IsNullOrEmpty(EntityNamePlural);
         set => SetProperty(ref _editRequestAddButtonEnabled, value);
     }
 
@@ -145,7 +144,9 @@ public class ConfigViewModel : BindableBase
 
     public bool GetRequestAddButtonEnabled
     {
-        get => !_selectedEndpoint?.GetRequestFileExists ?? false;
+        get =>
+            (!_selectedEndpoint?.GetRequestFileExists ?? false) &&
+            !string.IsNullOrEmpty(EntityNamePlural);
         set => SetProperty(ref _getRequestAddButtonEnabled, value);
     }
 
@@ -157,7 +158,9 @@ public class ConfigViewModel : BindableBase
 
     public bool RepositoryAddButtonEnabled
     {
-        get => !_selectedEndpoint?.RepositoryFileExists ?? false;
+        get =>
+            (!_selectedEndpoint?.RepositoryFileExists ?? false) &&
+            !string.IsNullOrEmpty(EntityNamePlural);
         set => SetProperty(ref _repositoryAddButtonEnabled, value);
     }
 
@@ -169,7 +172,9 @@ public class ConfigViewModel : BindableBase
 
     public bool ResponseAddButtonEnabled
     {
-        get => !_selectedEndpoint?.ResponseFileExists ?? false;
+        get =>
+            (!_selectedEndpoint?.ResponseFileExists ?? false) &&
+            !string.IsNullOrEmpty(EntityNamePlural);
         set => SetProperty(ref _responseAddButtonEnabled, value);
     }
 
@@ -181,7 +186,9 @@ public class ConfigViewModel : BindableBase
 
     public bool SearchRequestAddButtonEnabled
     {
-        get => !_selectedEndpoint?.SearchRequestFileExists ?? false;
+        get =>
+            (!_selectedEndpoint?.SearchRequestFileExists ?? false) &&
+            !string.IsNullOrEmpty(EntityNamePlural);
         set => SetProperty(ref _searchRequestAddButtonEnabled, value);
     }
 
@@ -193,13 +200,17 @@ public class ConfigViewModel : BindableBase
 
     public bool ServiceAddButtonEnabled
     {
-        get => !_selectedEndpoint?.ServiceFileExists ?? false;
+        get =>
+            (!_selectedEndpoint?.ServiceFileExists ?? false) &&
+            !string.IsNullOrEmpty(EntityNamePlural);
         set => SetProperty(ref _serviceAddButtonEnabled, value);
     }
 
     public bool ServiceImplAddButtonEnabled
     {
-        get => !_selectedEndpoint?.ServiceImplFileExists ?? false;
+        get =>
+            (!_selectedEndpoint?.ServiceImplFileExists ?? false) &&
+            !string.IsNullOrEmpty(EntityNamePlural);
         set => SetProperty(ref _serviceImplAddButtonEnabled, value);
     }
 
@@ -359,8 +370,14 @@ public class ConfigViewModel : BindableBase
     public string EntityNamePlural
     {
         get => _entityNamePlural;
-        set => SetProperty(ref _entityNamePlural, value);
+        set
+        {
+            SetProperty(ref _entityNamePlural, value);
+            RefreshButtonStatus();
+        }
     }
+
+    public string EntityNamePluralLowerCase => char.ToLower(EntityNamePlural[0]) + EntityNamePlural.Substring(1);
 
     public string GetRequestStatus
     {
@@ -428,6 +445,18 @@ public class ConfigViewModel : BindableBase
         }
     }
 
+    private Dictionary<string, string> GetReplacementDictionary(Endpoint endpoint)
+    {
+        return new Dictionary<string, string>
+        {
+            { "{{projectPath}}", endpoint.PackageName },
+            { "{{EntityName}}", endpoint.EntityFileName },
+            { "{{EntityNames}}", EntityNamePlural },
+            { "{{entityName}}", endpoint.EntityFileNameLowerCase },
+            { "{{entityNames}}", EntityNamePluralLowerCase }
+        };
+    }
+
     private SolidColorBrush GetStatusColor(string status)
     {
         if (status == "OK")
@@ -440,6 +469,8 @@ public class ConfigViewModel : BindableBase
 
     private void ExecuteAddCommand(string obj)
     {
+        var tmp = SelectedEndpoint;
+
         switch (obj)
         {
             case "Entity":
@@ -448,42 +479,45 @@ public class ConfigViewModel : BindableBase
                     ProjectPath = ProjectPath,
                     EntityFilePath = $"{ProjectPath}\\entities\\{EntityName}.java"
                 };
-                _endpointService.AddEntity(endpoint, replacementDictionary);
+                _endpointService.AddEntity(endpoint, GetReplacementDictionary(endpoint));
                 Endpoints.Add(endpoint);
-                Endpoints = new ObservableCollection<Endpoint>(Endpoints.OrderBy(x => x.EntityFileName));
-                SelectedEndpoint = endpoint;
+                tmp = endpoint;
                 break;
             case "Controller":
-                _endpointService.AddController(SelectedEndpoint, replacementDictionary);
+                _endpointService.AddController(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "AddRequest":
-                _endpointService.AddAddRequest(SelectedEndpoint, replacementDictionary);
+                _endpointService.AddAddRequest(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "EditRequest":
-                _endpointService.AddEditRequest(SelectedEndpoint, replacementDictionary);
+                _endpointService.AddEditRequest(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "DeleteRequest":
-                _endpointService.AddDeleteRequest(SelectedEndpoint, replacementDictionary);
+                _endpointService.AddDeleteRequest(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "GetRequest":
-                _endpointService.AddGetRequest(SelectedEndpoint, replacementDictionary);
+                _endpointService.AddGetRequest(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "SearchRequest":
-                _endpointService.AddSearchRequest(SelectedEndpoint, replacementDictionary);
+                _endpointService.AddSearchRequest(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "Response":
-                _endpointService.AddResponse(SelectedEndpoint, replacementDictionary);
+                _endpointService.AddResponse(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "Service":
-                _endpointService.AddService(SelectedEndpoint, replacementDictionary);
+                _endpointService.AddService(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "ServiceImpl":
-                _endpointService.AddServiceImpl(SelectedEndpoint, replacementDictionary);
+                _endpointService.AddServiceImpl(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "Repository":
-                _endpointService.AddRepository(SelectedEndpoint, replacementDictionary);
+                _endpointService.AddRepository(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
                 break;
         }
+
+        Endpoints = new ObservableCollection<Endpoint>(_analyzerService.GetEndpoints(ProjectPath));
+        InitializeEndpointStatus(tmp);
+        SelectedEndpoint = Endpoints.FirstOrDefault(x => x.EntityFileName == tmp.EntityFileName);
     }
 
     private void ExecuteProjectPathSearchCommand()
@@ -539,6 +573,10 @@ public class ConfigViewModel : BindableBase
                 _endpointService.RemoveRepository(SelectedEndpoint);
                 break;
         }
+
+        var tmp = SelectedEndpoint;
+        Endpoints = new ObservableCollection<Endpoint>(_analyzerService.GetEndpoints(ProjectPath));
+        SelectedEndpoint = Endpoints.FirstOrDefault(x => x.EntityFileName == tmp.EntityFileName);
     }
 
     private void InitializeEndpointStatus(Endpoint? endpoint)
@@ -550,8 +588,8 @@ public class ConfigViewModel : BindableBase
 
         ControllerStatus = endpoint.ControllerFileExists ? "OK" : "FEHLT";
         RepositoryStatus = endpoint.RepositoryFileExists ? "OK" : "FEHLT";
-        ServiceStatus = endpoint.ServiceImplFileExists ? "OK" : "FEHLT";
-        ServiceImplStatus = endpoint.ServiceFileExists ? "OK" : "FEHLT";
+        ServiceStatus = endpoint.ServiceFileExists ? "OK" : "FEHLT";
+        ServiceImplStatus = endpoint.ServiceImplFileExists ? "OK" : "FEHLT";
         AddRequestStatus = endpoint.AddRequestFileExists ? "OK" : "FEHLT";
         GetRequestStatus = endpoint.GetRequestFileExists ? "OK" : "FEHLT";
         EditRequestStatus = endpoint.EditRequestFileExists ? "OK" : "FEHLT";
@@ -584,5 +622,15 @@ public class ConfigViewModel : BindableBase
         RaisePropertyChanged(nameof(ServiceRemoveButtonEnabled));
         RaisePropertyChanged(nameof(ServiceImplAddButtonEnabled));
         RaisePropertyChanged(nameof(ServiceImplRemoveButtonEnabled));
+        RaisePropertyChanged(nameof(ControllerStatusColor));
+        RaisePropertyChanged(nameof(RepositoryStatusColor));
+        RaisePropertyChanged(nameof(ResponseStatusColor));
+        RaisePropertyChanged(nameof(AddRequestStatusColor));
+        RaisePropertyChanged(nameof(EditRequestStatusColor));
+        RaisePropertyChanged(nameof(DeleteRequestStatusColor));
+        RaisePropertyChanged(nameof(GetRequestStatusColor));
+        RaisePropertyChanged(nameof(SearchRequestStatusColor));
+        RaisePropertyChanged(nameof(ServiceStatusColor));
+        RaisePropertyChanged(nameof(ServiceImplStatusColor));
     }
 }

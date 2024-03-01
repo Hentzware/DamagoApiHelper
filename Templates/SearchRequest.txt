@@ -5,6 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Search{{entityName}}Request {
+public class Search{{EntityName}}Request {
     private String id;
 }

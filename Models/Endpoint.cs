@@ -47,6 +47,8 @@ public class Endpoint
 
     public string? EntityFileName => EntityFilePath?.Split('\\')[^1].Split('.')[0];
 
+    public string? EntityFileNameLowerCase => char.ToLower(EntityFileName[0]) + EntityFileName.Substring(1);
+
     public string? EntityFilePath { get; set; }
 
     public string? GetRequestFileName => GetRequestFilePath?.Split('\\')[^1].Split('.')[0];

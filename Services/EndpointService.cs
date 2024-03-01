@@ -25,7 +25,7 @@ public class EndpointService : IEndpointService
         
         template = _textService.ReplaceText(template, replacementDictionary);
         
-        WriteTemplateFile(template,$"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Add{endpoint.EntityFileName}Request.java");
+        WriteTemplateFile(template,$"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileNameLowerCase}\\Add{endpoint.EntityFileName}Request.java");
     }
 
     public void AddController(Endpoint? endpoint, Dictionary<string, string> replacementDictionary)
@@ -47,7 +47,7 @@ public class EndpointService : IEndpointService
         
         template = _textService.ReplaceText(template, replacementDictionary);
         
-        WriteTemplateFile(template,$"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Delete{endpoint.EntityFileName}Request.java");
+        WriteTemplateFile(template,$"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileNameLowerCase}\\Delete{endpoint.EntityFileName}Request.java");
     }
 
     public void AddEditRequest(Endpoint? endpoint, Dictionary<string, string> replacementDictionary)
@@ -58,7 +58,7 @@ public class EndpointService : IEndpointService
         
         template = _textService.ReplaceText(template, replacementDictionary);
         
-        WriteTemplateFile(template,$"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Edit{endpoint.EntityFileName}Request.java");
+        WriteTemplateFile(template,$"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileNameLowerCase}\\Edit{endpoint.EntityFileName}Request.java");
     }
 
     public void AddEntity(Endpoint? endpoint, Dictionary<string, string> replacementDictionary)
@@ -80,7 +80,7 @@ public class EndpointService : IEndpointService
         
         template = _textService.ReplaceText(template, replacementDictionary);
         
-        WriteTemplateFile(template,$"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Get{endpoint.EntityFileName}Request.java");
+        WriteTemplateFile(template,$"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileNameLowerCase}\\Get{endpoint.EntityFileName}Request.java");
     }
 
     public void AddRepository(Endpoint? endpoint, Dictionary<string, string> replacementDictionary)
@@ -113,7 +113,7 @@ public class EndpointService : IEndpointService
         
         template = _textService.ReplaceText(template, replacementDictionary);
         
-        WriteTemplateFile(template,$"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Search{endpoint.EntityFileName}Request.java");
+        WriteTemplateFile(template,$"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileNameLowerCase}\\Search{endpoint.EntityFileName}Request.java");
     }
 
     public void AddService(Endpoint? endpoint, Dictionary<string, string> replacementDictionary)
@@ -142,13 +142,13 @@ public class EndpointService : IEndpointService
     {
         if (endpoint == null) return;
         
-        RemoveTemplateFile($"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Add{endpoint.EntityFileName}Request.java");
+        RemoveTemplateFile($"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileNameLowerCase}\\Add{endpoint.EntityFileName}Request.java");
         RemoveRequestDirectory(endpoint);
     }
 
     private void RemoveRequestDirectory(Endpoint? endpoint)
     {
-        var folderPath = $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}";
+        var folderPath = $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileNameLowerCase}";
         
         if (Directory.Exists(folderPath))
         {
@@ -170,7 +170,7 @@ public class EndpointService : IEndpointService
     {
         if (endpoint == null) return;
         
-        RemoveTemplateFile($"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Delete{endpoint.EntityFileName}Request.java");
+        RemoveTemplateFile($"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileNameLowerCase}\\Delete{endpoint.EntityFileName}Request.java");
         RemoveRequestDirectory(endpoint);
     }
 
@@ -178,7 +178,7 @@ public class EndpointService : IEndpointService
     {
         if (endpoint == null) return;
         
-        RemoveTemplateFile($"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Edit{endpoint.EntityFileName}Request.java");
+        RemoveTemplateFile($"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileNameLowerCase}\\Edit{endpoint.EntityFileName}Request.java");
         RemoveRequestDirectory(endpoint);
     }
 
@@ -190,20 +190,21 @@ public class EndpointService : IEndpointService
         RemoveController(endpoint);
         RemoveDeleteRequest(endpoint);
         RemoveEditRequest(endpoint);
-        RemoveEntity(endpoint);
         RemoveGetRequest(endpoint);
         RemoveRepository(endpoint);
         RemoveResponse(endpoint);
         RemoveSearchRequest(endpoint);
         RemoveService(endpoint);
         RemoveServiceImpl(endpoint);
+        
+        RemoveTemplateFile(endpoint.EntityFilePath);
     }
 
     public void RemoveGetRequest(Endpoint? endpoint)
     {
         if (endpoint == null) return;
         
-        RemoveTemplateFile($"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Get{endpoint.EntityFileName}Request.java");
+        RemoveTemplateFile($"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileNameLowerCase}\\Get{endpoint.EntityFileName}Request.java");
         RemoveRequestDirectory(endpoint);
     }
 
@@ -225,7 +226,7 @@ public class EndpointService : IEndpointService
     {
         if (endpoint == null) return;
         
-        RemoveTemplateFile($"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileName}\\Search{endpoint.EntityFileName}Request.java");
+        RemoveTemplateFile($"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileNameLowerCase}\\Search{endpoint.EntityFileName}Request.java");
         RemoveRequestDirectory(endpoint);
     }
 

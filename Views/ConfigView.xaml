@@ -81,7 +81,7 @@
                             VerticalContentAlignment="Center"
                             Content="Klasse Name - Plural" />
                         <TextBox
-                            Width="250" Text="{Binding EntityNamePlural}"
+                            Width="250" Text="{Binding EntityNamePlural, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             VerticalAlignment="Center"
                             VerticalContentAlignment="Center"
                             d:Text="Entities" />

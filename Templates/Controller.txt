@@ -1,7 +1,7 @@
 ﻿package {{projectPath}}.controllers;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import {{projectPath}}.requests.{{EntityName}}.*;
+import {{projectPath}}.requests.{{entityName}}.*;
 import {{projectPath}}.responses.{{EntityName}}Response;
 import {{projectPath}}.services.{{EntityName}}Service;
 import org.springframework.http.HttpStatus;
