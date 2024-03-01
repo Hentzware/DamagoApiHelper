@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using DamagoApiHelper.Models;
 
-namespace DamagoApiHelper.Services
+namespace DamagoApiHelper.Services;
+
+public interface IAnalyzerService
 {
-    public interface IAnalyzerService
-    {
-        ObservableCollection<Endpoint> GetEndpoints(string projectPath);
-    }
+    ObservableCollection<Endpoint> GetEndpoints(string projectPath);
 }

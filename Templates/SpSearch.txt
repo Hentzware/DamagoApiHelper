@@ -1,0 +1,5 @@
+﻿CREATE PROCEDURE sp_{{EntityNames}}_Search (IN in_placeholder VARCHAR(100))
+BEGIN
+    SELECT * FROM {{entityNames}}
+    WHERE (placeholder LIKE CONCAT('%', in_placeholder, '%') OR in_placeholder IS NULL);
+END

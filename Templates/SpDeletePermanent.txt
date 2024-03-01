@@ -1,0 +1,4 @@
+﻿CREATE PROCEDURE sp_{{EntityNames}}_DeletePermanent (IN in_id varchar(36))
+BEGIN
+    DELETE FROM {{entityNames}} WHERE id = in_id;
+END

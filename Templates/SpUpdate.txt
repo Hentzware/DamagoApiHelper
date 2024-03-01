@@ -1,0 +1,7 @@
+﻿CREATE PROCEDURE sp_{{EntityNames}}_Update (IN in_id varchar(36), IN in_placeholder varchar(100))
+BEGIN
+    UPDATE {{entityNames}}
+        SET
+            placeholder = IF (in_placeholder IS NOT NULL, in_placeholder, placeholder)
+    WHERE id = in_id;
+END

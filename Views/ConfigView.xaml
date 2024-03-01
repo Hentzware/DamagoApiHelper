@@ -3,7 +3,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:DamagoApiHelper.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:Background="White"
     d:DesignHeight="600"
@@ -81,7 +80,8 @@
                             VerticalContentAlignment="Center"
                             Content="Klasse Name - Plural" />
                         <TextBox
-                            Width="250" Text="{Binding EntityNamePlural, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Width="250"
+                            Text="{Binding EntityNamePlural, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             VerticalAlignment="Center"
                             VerticalContentAlignment="Center"
                             d:Text="Entities" />

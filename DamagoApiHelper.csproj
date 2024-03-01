@@ -1,47 +1,65 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net7.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Templates\AddRequest.txt" />
-    <None Remove="Templates\Controller.txt" />
-    <None Remove="Templates\DeleteRequest.txt" />
-    <None Remove="Templates\EditRequest.txt" />
-    <None Remove="Templates\Entity.txt" />
-    <None Remove="Templates\GetRequest.txt" />
-    <None Remove="Templates\Repository.txt" />
-    <None Remove="Templates\Response.txt" />
-    <None Remove="Templates\SearchRequest.txt" />
-    <None Remove="Templates\Service.txt" />
-    <None Remove="Templates\ServiceImpl.txt" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Templates\AddRequest.txt" />
+		<None Remove="Templates\Controller.txt" />
+		<None Remove="Templates\DeleteRequest.txt" />
+		<None Remove="Templates\EditRequest.txt" />
+		<None Remove="Templates\Entity.txt" />
+		<None Remove="Templates\GetRequest.txt" />
+		<None Remove="Templates\Repository.txt" />
+		<None Remove="Templates\Response.txt" />
+		<None Remove="Templates\SearchRequest.txt" />
+		<None Remove="Templates\Service.txt" />
+		<None Remove="Templates\ServiceImpl.txt" />
+		<None Remove="Templates\SpAdd.txt" />
+		<None Remove="Templates\SpDelete.txt" />
+		<None Remove="Templates\SpDeletePermanent.txt" />
+		<None Remove="Templates\SpGet.txt" />
+		<None Remove="Templates\SpGetById.txt" />
+		<None Remove="Templates\SpGetDeleted.txt" />
+		<None Remove="Templates\SpSearch.txt" />
+		<None Remove="Templates\SpUndelete.txt" />
+		<None Remove="Templates\SpUpdate.txt" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="Templates\AddRequest.txt" />
-    <EmbeddedResource Include="Templates\Controller.txt" />
-    <EmbeddedResource Include="Templates\DeleteRequest.txt" />
-    <EmbeddedResource Include="Templates\EditRequest.txt" />
-    <EmbeddedResource Include="Templates\Entity.txt" />
-    <EmbeddedResource Include="Templates\GetRequest.txt" />
-    <EmbeddedResource Include="Templates\Repository.txt" />
-    <EmbeddedResource Include="Templates\Response.txt" />
-    <EmbeddedResource Include="Templates\SearchRequest.txt" />
-    <EmbeddedResource Include="Templates\Service.txt" />
-    <EmbeddedResource Include="Templates\ServiceImpl.txt" />
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Templates\AddRequest.txt" />
+		<EmbeddedResource Include="Templates\Controller.txt" />
+		<EmbeddedResource Include="Templates\DeleteRequest.txt" />
+		<EmbeddedResource Include="Templates\EditRequest.txt" />
+		<EmbeddedResource Include="Templates\Entity.txt" />
+		<EmbeddedResource Include="Templates\GetRequest.txt" />
+		<EmbeddedResource Include="Templates\Repository.txt" />
+		<EmbeddedResource Include="Templates\Response.txt" />
+		<EmbeddedResource Include="Templates\SearchRequest.txt" />
+		<EmbeddedResource Include="Templates\Service.txt" />
+		<EmbeddedResource Include="Templates\ServiceImpl.txt" />
+		<EmbeddedResource Include="Templates\SpAdd.txt" />
+		<EmbeddedResource Include="Templates\SpDelete.txt" />
+		<EmbeddedResource Include="Templates\SpDeletePermanent.txt" />
+		<EmbeddedResource Include="Templates\SpGet.txt" />
+		<EmbeddedResource Include="Templates\SpGetById.txt" />
+		<EmbeddedResource Include="Templates\SpGetDeleted.txt" />
+		<EmbeddedResource Include="Templates\SpSearch.txt" />
+		<EmbeddedResource Include="Templates\SpUndelete.txt" />
+		<EmbeddedResource Include="Templates\SpUpdate.txt" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.5" />
-    <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.5" />
+		<PackageReference Include="Prism.DryIoc" Version="8.1.97" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="PubSubEvents\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="PubSubEvents\" />
+	</ItemGroup>
 
 </Project>

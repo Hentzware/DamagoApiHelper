@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using DamagoApiHelper.Models;
-using Microsoft.WindowsAPICodePack.Shell.Interop;
 
 namespace DamagoApiHelper.Services;
 
@@ -44,7 +43,10 @@ public class AnalyzerService : IAnalyzerService
 
         foreach (var endpoint in endpoints)
         {
-            if (string.IsNullOrEmpty(endpoint.EntityFileName)) continue;
+            if (string.IsNullOrEmpty(endpoint.EntityFileName))
+            {
+                continue;
+            }
 
             endpoint.ControllerFilePath = GetControllerFilePath(endpoint.EntityFileName + "Controller.java");
             endpoint.ResponseFilePath = GetResponseFilePath(endpoint.EntityFileName + "Response.java");
@@ -55,11 +57,17 @@ public class AnalyzerService : IAnalyzerService
             var requestFolderPath =
                 GetRequestFolderPath(endpoint.EntityFileName);
 
-            if (string.IsNullOrEmpty(requestFolderPath)) continue;
+            if (string.IsNullOrEmpty(requestFolderPath))
+            {
+                continue;
+            }
 
             var requestFilePaths = Directory.EnumerateFiles(requestFolderPath).ToList();
 
-            if (!requestFilePaths.Any()) continue;
+            if (!requestFilePaths.Any())
+            {
+                continue;
+            }
 
             endpoint.AddRequestFilePath =
                 GetRequestFilePath(requestFilePaths, "Add" + endpoint.EntityFileName + "Request.java");
@@ -96,13 +104,15 @@ public class AnalyzerService : IAnalyzerService
 
     private string? GetRequestFilePath(List<string> requestFilePaths, string fileName)
     {
-        return requestFilePaths.FirstOrDefault(x => x.Split('\\')[^1].Equals(fileName, StringComparison.OrdinalIgnoreCase));
+        return requestFilePaths.FirstOrDefault(x =>
+            x.Split('\\')[^1].Equals(fileName, StringComparison.OrdinalIgnoreCase));
     }
 
     private string? GetRequestFolderPath(string folderName)
     {
         var requestFolders = Directory.EnumerateDirectories(_requestsPath);
-        return requestFolders.FirstOrDefault(x => x.Split('\\')[^1].Equals(folderName, StringComparison.OrdinalIgnoreCase));
+        return requestFolders.FirstOrDefault(x =>
+            x.Split('\\')[^1].Equals(folderName, StringComparison.OrdinalIgnoreCase));
     }
 
     private string? GetResponseFilePath(string fileName)
@@ -131,8 +141,12 @@ public class AnalyzerService : IAnalyzerService
     {
         if (!Directory.Exists(path))
         {
-            if (MessageBox.Show($"Das Verzeichnis {path} existiert nicht. Soll das Verzeichnis erstellt werden?", "Achtung!", MessageBoxButton.YesNo) == MessageBoxResult.No) return;
-            
+            if (MessageBox.Show($"Das Verzeichnis {path} existiert nicht. Soll das Verzeichnis erstellt werden?",
+                    "Achtung!", MessageBoxButton.YesNo) == MessageBoxResult.No)
+            {
+                return;
+            }
+
             Directory.CreateDirectory(path);
         }
     }

@@ -245,6 +245,7 @@ public class ConfigViewModel : BindableBase
             if (value != null)
             {
                 InitializeEndpointStatus(value);
+                EntityName = value.EntityFileName;
             }
 
             RaisePropertyChanged(nameof(EntityRemoveButtonEnabled));
@@ -484,7 +485,8 @@ public class ConfigViewModel : BindableBase
                 tmp = endpoint;
                 break;
             case "Controller":
-                _endpointService.AddController(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.AddSpAdd(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
+                //_endpointService.AddController(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "AddRequest":
                 _endpointService.AddAddRequest(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
@@ -512,6 +514,24 @@ public class ConfigViewModel : BindableBase
                 break;
             case "Repository":
                 _endpointService.AddRepository(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
+                break;
+            case "SpAdd":
+                break;
+            case "SpDelete":
+                break;
+            case "SpDeletePermanent":
+                break;
+            case "SpGet":
+                break;
+            case "SpGetById":
+                break;
+            case "SpGetDeleted":
+                break;
+            case "SpSearch":
+                break;
+            case "SpUndelete":
+                break;
+            case "SpUpdate":
                 break;
         }
 
@@ -571,6 +591,24 @@ public class ConfigViewModel : BindableBase
                 break;
             case "Repository":
                 _endpointService.RemoveRepository(SelectedEndpoint);
+                break;
+            case "SpAdd":
+                break;
+            case "SpDelete":
+                break;
+            case "SpDeletePermanent":
+                break;
+            case "SpGet":
+                break;
+            case "SpGetById":
+                break;
+            case "SpGetDeleted":
+                break;
+            case "SpSearch":
+                break;
+            case "SpUndelete":
+                break;
+            case "SpUpdate":
                 break;
         }
 

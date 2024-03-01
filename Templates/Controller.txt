@@ -81,7 +81,7 @@ public class {{EntityName}}Controller {
 
         Search{{EntityName}}Request request = new Search{{EntityName}}Request();
 
-        request.setName(name);
+        // request.setName(name);
 
         Iterable<{{EntityName}}Response> result = {{entityName}}Service.Search(request);
 

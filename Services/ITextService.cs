@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace DamagoApiHelper.Services
+namespace DamagoApiHelper.Services;
+
+public interface ITextService
 {
-    public interface ITextService
-    {
-        string ReplaceText(string template, Dictionary<string, string> replacementDictionary);
-    }
+    string ReplaceText(string template, Dictionary<string, string> replacementDictionary);
 }
