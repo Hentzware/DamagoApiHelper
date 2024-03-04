@@ -90,12 +90,6 @@ public class AnalyzerService : IAnalyzerService
         return controllers.FirstOrDefault(x => x.Split('\\')[^1].Equals(fileName, StringComparison.OrdinalIgnoreCase));
     }
 
-    private string? GetEntityFilePath(string fileName)
-    {
-        var entities = Directory.EnumerateFiles(_entitiesPath);
-        return entities.FirstOrDefault(x => x.Split('\\')[^1].Equals(fileName, StringComparison.OrdinalIgnoreCase));
-    }
-
     private string? GetRepositoryFilePath(string fileName)
     {
         var repositories = Directory.EnumerateFiles(_repositoriesPath);

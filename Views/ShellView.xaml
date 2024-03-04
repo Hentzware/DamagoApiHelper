@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
     Title="ShellView"
-    Width="850"
+    Width="1250"
     Height="650"
     ResizeMode="NoResize"
     mc:Ignorable="d">

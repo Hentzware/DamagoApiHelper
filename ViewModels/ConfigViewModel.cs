@@ -14,117 +14,21 @@ public class ConfigViewModel : BindableBase
 {
     private readonly IAnalyzerService _analyzerService;
     private readonly IEndpointService _endpointService;
-    private bool _addRequestAddButtonEnabled;
-    private bool _addRequestRemoveButtonEnabled;
-    private bool _controllerAddButtonEnabled;
-    private bool _controllerRemoveButtonEnabled;
-    private bool _deleteRequestAddButtonEnabled;
-    private bool _deleteRequestRemoveButtonEnabled;
-    private bool _editRequestAddButtonEnabled;
-    private bool _editRequestRemoveButtonEnabled;
     private bool _entityAddButtonEnabled;
     private bool _entityRemoveButtonEnabled;
-    private bool _getRequestAddButtonEnabled;
-    private bool _getRequestRemoveButtonEnabled;
-    private bool _repositoryAddButtonEnabled;
-    private bool _repositoryRemoveButtonEnabled;
-    private bool _responseAddButtonEnabled;
-    private bool _responseRemoveButtonEnabled;
-    private bool _searchRequestAddButtonEnabled;
-    private bool _searchRequestRemoveButtonEnabled;
-    private bool _serviceAddButtonEnabled;
-    private bool _serviceImplAddButtonEnabled;
-    private bool _serviceImplRemoveButtonEnabled;
-    private bool _serviceRemoveButtonEnabled;
     private DelegateCommand _projectPathSearchCommand;
     private DelegateCommand<string> _addCommand;
     private DelegateCommand<string> _removeCommand;
     private Endpoint? _selectedEndpoint;
     private ObservableCollection<Endpoint> _endpoints;
-    private SolidColorBrush _addRequestStatusColor = new(Colors.Gray);
-    private SolidColorBrush _controllerStatusColor = new(Colors.Gray);
-    private SolidColorBrush _deleteRequestStatusColor = new(Colors.Gray);
-    private SolidColorBrush _editRequestStatusColor = new(Colors.Gray);
-    private SolidColorBrush _getRequestStatusColor = new(Colors.Gray);
-    private SolidColorBrush _repositoryStatusColor = new(Colors.Gray);
-    private SolidColorBrush _responseStatusColor = new(Colors.Gray);
-    private SolidColorBrush _searchRequestStatusColor = new(Colors.Gray);
-    private SolidColorBrush _serviceImplStatusColor = new(Colors.Gray);
-    private SolidColorBrush _serviceStatusColor = new(Colors.Gray);
-    private string _addRequestStatus = "UNBEKANNT";
-    private string _controllerStatus = "UNBEKANNT";
-    private string _deleteRequestStatus = "UNBEKANNT";
-    private string _editRequestStatus = "UNBEKANNT";
     private string _entityName;
     private string _entityNamePlural;
-    private string _getRequestStatus = "UNBEKANNT";
     private string _projectPath;
-    private string _repositoryStatus = "UNBEKANNT";
-    private string _responseStatus = "UNBEKANNT";
-    private string _searchRequestStatus = "UNBEKANNT";
-    private string _serviceImplStatus = "UNBEKANNT";
-    private string _serviceStatus = "UNBEKANNT";
 
     public ConfigViewModel(IAnalyzerService analyzerService, IEndpointService endpointService)
     {
         _analyzerService = analyzerService;
         _endpointService = endpointService;
-    }
-
-    public bool AddRequestAddButtonEnabled
-    {
-        get =>
-            (!_selectedEndpoint?.AddRequestFileExists ?? false) &&
-            !string.IsNullOrEmpty(EntityNamePlural);
-        set => SetProperty(ref _addRequestAddButtonEnabled, value);
-    }
-
-    public bool AddRequestRemoveButtonEnabled
-    {
-        get => _selectedEndpoint?.AddRequestFileExists ?? false;
-        set => SetProperty(ref _addRequestRemoveButtonEnabled, value);
-    }
-
-    public bool ControllerAddButtonEnabled
-    {
-        get =>
-            (!_selectedEndpoint?.ControllerFileExists ?? false) &&
-            !string.IsNullOrEmpty(EntityNamePlural);
-        set => SetProperty(ref _controllerAddButtonEnabled, value);
-    }
-
-    public bool ControllerRemoveButtonEnabled
-    {
-        get => _selectedEndpoint?.ControllerFileExists ?? false;
-        set => SetProperty(ref _controllerRemoveButtonEnabled, value);
-    }
-
-    public bool DeleteRequestAddButtonEnabled
-    {
-        get =>
-            (!_selectedEndpoint?.DeleteRequestFileExists ?? false) &&
-            !string.IsNullOrEmpty(EntityNamePlural);
-        set => SetProperty(ref _deleteRequestAddButtonEnabled, value);
-    }
-
-    public bool DeleteRequestRemoveButtonEnabled
-    {
-        get => _selectedEndpoint?.DeleteRequestFileExists ?? false;
-        set => SetProperty(ref _deleteRequestRemoveButtonEnabled, value);
-    }
-
-    public bool EditRequestAddButtonEnabled
-    {
-        get =>
-            (!_selectedEndpoint?.EditRequestFileExists ?? false) &&
-            !string.IsNullOrEmpty(EntityNamePlural);
-        set => SetProperty(ref _editRequestAddButtonEnabled, value);
-    }
-
-    public bool EditRequestRemoveButtonEnabled
-    {
-        get => _selectedEndpoint?.EditRequestFileExists ?? false;
-        set => SetProperty(ref _editRequestRemoveButtonEnabled, value);
     }
 
     public bool EntityAddButtonEnabled
@@ -140,90 +44,6 @@ public class ConfigViewModel : BindableBase
     {
         get => _selectedEndpoint != null;
         set => SetProperty(ref _entityRemoveButtonEnabled, value);
-    }
-
-    public bool GetRequestAddButtonEnabled
-    {
-        get =>
-            (!_selectedEndpoint?.GetRequestFileExists ?? false) &&
-            !string.IsNullOrEmpty(EntityNamePlural);
-        set => SetProperty(ref _getRequestAddButtonEnabled, value);
-    }
-
-    public bool GetRequestRemoveButtonEnabled
-    {
-        get => _selectedEndpoint?.GetRequestFileExists ?? false;
-        set => SetProperty(ref _getRequestRemoveButtonEnabled, value);
-    }
-
-    public bool RepositoryAddButtonEnabled
-    {
-        get =>
-            (!_selectedEndpoint?.RepositoryFileExists ?? false) &&
-            !string.IsNullOrEmpty(EntityNamePlural);
-        set => SetProperty(ref _repositoryAddButtonEnabled, value);
-    }
-
-    public bool RepositoryRemoveButtonEnabled
-    {
-        get => _selectedEndpoint?.RepositoryFileExists ?? false;
-        set => SetProperty(ref _repositoryRemoveButtonEnabled, value);
-    }
-
-    public bool ResponseAddButtonEnabled
-    {
-        get =>
-            (!_selectedEndpoint?.ResponseFileExists ?? false) &&
-            !string.IsNullOrEmpty(EntityNamePlural);
-        set => SetProperty(ref _responseAddButtonEnabled, value);
-    }
-
-    public bool ResponseRemoveButtonEnabled
-    {
-        get => _selectedEndpoint?.ResponseFileExists ?? false;
-        set => SetProperty(ref _responseRemoveButtonEnabled, value);
-    }
-
-    public bool SearchRequestAddButtonEnabled
-    {
-        get =>
-            (!_selectedEndpoint?.SearchRequestFileExists ?? false) &&
-            !string.IsNullOrEmpty(EntityNamePlural);
-        set => SetProperty(ref _searchRequestAddButtonEnabled, value);
-    }
-
-    public bool SearchRequestRemoveButtonEnabled
-    {
-        get => _selectedEndpoint?.SearchRequestFileExists ?? false;
-        set => SetProperty(ref _searchRequestRemoveButtonEnabled, value);
-    }
-
-    public bool ServiceAddButtonEnabled
-    {
-        get =>
-            (!_selectedEndpoint?.ServiceFileExists ?? false) &&
-            !string.IsNullOrEmpty(EntityNamePlural);
-        set => SetProperty(ref _serviceAddButtonEnabled, value);
-    }
-
-    public bool ServiceImplAddButtonEnabled
-    {
-        get =>
-            (!_selectedEndpoint?.ServiceImplFileExists ?? false) &&
-            !string.IsNullOrEmpty(EntityNamePlural);
-        set => SetProperty(ref _serviceImplAddButtonEnabled, value);
-    }
-
-    public bool ServiceImplRemoveButtonEnabled
-    {
-        get => _selectedEndpoint?.ServiceImplFileExists ?? false;
-        set => SetProperty(ref _serviceImplRemoveButtonEnabled, value);
-    }
-
-    public bool ServiceRemoveButtonEnabled
-    {
-        get => _selectedEndpoint?.ServiceFileExists ?? false;
-        set => SetProperty(ref _serviceRemoveButtonEnabled, value);
     }
 
     public DelegateCommand ProjectPathSearchCommand =>
@@ -244,7 +64,6 @@ public class ConfigViewModel : BindableBase
 
             if (value != null)
             {
-                InitializeEndpointStatus(value);
                 EntityName = value.EntityFileName;
             }
 
@@ -256,106 +75,6 @@ public class ConfigViewModel : BindableBase
     {
         get => _endpoints;
         set => SetProperty(ref _endpoints, value);
-    }
-
-    public SolidColorBrush AddRequestStatusColor
-    {
-        get => _addRequestStatusColor;
-        set => SetProperty(ref _addRequestStatusColor, value);
-    }
-
-    public SolidColorBrush ControllerStatusColor
-    {
-        get => _controllerStatusColor;
-        set => SetProperty(ref _controllerStatusColor, value);
-    }
-
-    public SolidColorBrush DeleteRequestStatusColor
-    {
-        get => _deleteRequestStatusColor;
-        set => SetProperty(ref _deleteRequestStatusColor, value);
-    }
-
-    public SolidColorBrush EditRequestStatusColor
-    {
-        get => _editRequestStatusColor;
-        set => SetProperty(ref _editRequestStatusColor, value);
-    }
-
-    public SolidColorBrush GetRequestStatusColor
-    {
-        get => _getRequestStatusColor;
-        set => SetProperty(ref _getRequestStatusColor, value);
-    }
-
-    public SolidColorBrush RepositoryStatusColor
-    {
-        get => _repositoryStatusColor;
-        set => SetProperty(ref _repositoryStatusColor, value);
-    }
-
-    public SolidColorBrush ResponseStatusColor
-    {
-        get => _responseStatusColor;
-        set => SetProperty(ref _responseStatusColor, value);
-    }
-
-    public SolidColorBrush SearchRequestStatusColor
-    {
-        get => _searchRequestStatusColor;
-        set => SetProperty(ref _searchRequestStatusColor, value);
-    }
-
-    public SolidColorBrush ServiceImplStatusColor
-    {
-        get => _serviceImplStatusColor;
-        set => SetProperty(ref _serviceImplStatusColor, value);
-    }
-
-    public SolidColorBrush ServiceStatusColor
-    {
-        get => _serviceStatusColor;
-        set => SetProperty(ref _serviceStatusColor, value);
-    }
-
-    public string AddRequestStatus
-    {
-        get => _addRequestStatus;
-        set
-        {
-            SetProperty(ref _addRequestStatus, value);
-            AddRequestStatusColor = GetStatusColor(value);
-        }
-    }
-
-    public string ControllerStatus
-    {
-        get => _controllerStatus;
-        set
-        {
-            SetProperty(ref _controllerStatus, value);
-            ControllerStatusColor = GetStatusColor(value);
-        }
-    }
-
-    public string DeleteRequestStatus
-    {
-        get => _deleteRequestStatus;
-        set
-        {
-            SetProperty(ref _deleteRequestStatus, value);
-            DeleteRequestStatusColor = GetStatusColor(value);
-        }
-    }
-
-    public string EditRequestStatus
-    {
-        get => _editRequestStatus;
-        set
-        {
-            SetProperty(ref _editRequestStatus, value);
-            EditRequestStatusColor = GetStatusColor(value);
-        }
     }
 
     public string EntityName
@@ -371,79 +90,15 @@ public class ConfigViewModel : BindableBase
     public string EntityNamePlural
     {
         get => _entityNamePlural;
-        set
-        {
-            SetProperty(ref _entityNamePlural, value);
-            RefreshButtonStatus();
-        }
+        set => SetProperty(ref _entityNamePlural, value);
     }
 
     public string EntityNamePluralLowerCase => char.ToLower(EntityNamePlural[0]) + EntityNamePlural.Substring(1);
-
-    public string GetRequestStatus
-    {
-        get => _getRequestStatus;
-        set
-        {
-            SetProperty(ref _getRequestStatus, value);
-            GetRequestStatusColor = GetStatusColor(value);
-        }
-    }
 
     public string ProjectPath
     {
         get => _projectPath;
         set => SetProperty(ref _projectPath, value);
-    }
-
-    public string RepositoryStatus
-    {
-        get => _repositoryStatus;
-        set
-        {
-            SetProperty(ref _repositoryStatus, value);
-            RepositoryStatusColor = GetStatusColor(value);
-        }
-    }
-
-    public string ResponseStatus
-    {
-        get => _responseStatus;
-        set
-        {
-            SetProperty(ref _responseStatus, value);
-            ResponseStatusColor = GetStatusColor(value);
-        }
-    }
-
-    public string SearchRequestStatus
-    {
-        get => _searchRequestStatus;
-        set
-        {
-            SetProperty(ref _searchRequestStatus, value);
-            SearchRequestStatusColor = GetStatusColor(value);
-        }
-    }
-
-    public string ServiceImplStatus
-    {
-        get => _serviceImplStatus;
-        set
-        {
-            SetProperty(ref _serviceImplStatus, value);
-            ServiceImplStatusColor = GetStatusColor(value);
-        }
-    }
-
-    public string ServiceStatus
-    {
-        get => _serviceStatus;
-        set
-        {
-            SetProperty(ref _serviceStatus, value);
-            ServiceStatusColor = GetStatusColor(value);
-        }
     }
 
     private Dictionary<string, string> GetReplacementDictionary(Endpoint endpoint)
@@ -456,16 +111,6 @@ public class ConfigViewModel : BindableBase
             { "{{entityName}}", endpoint.EntityFileNameLowerCase },
             { "{{entityNames}}", EntityNamePluralLowerCase }
         };
-    }
-
-    private SolidColorBrush GetStatusColor(string status)
-    {
-        if (status == "OK")
-        {
-            return new SolidColorBrush(Colors.Green);
-        }
-
-        return new SolidColorBrush(Colors.Red);
     }
 
     private void ExecuteAddCommand(string obj)
@@ -536,7 +181,6 @@ public class ConfigViewModel : BindableBase
         }
 
         Endpoints = new ObservableCollection<Endpoint>(_analyzerService.GetEndpoints(ProjectPath));
-        InitializeEndpointStatus(tmp);
         SelectedEndpoint = Endpoints.FirstOrDefault(x => x.EntityFileName == tmp.EntityFileName);
     }
 
@@ -615,60 +259,5 @@ public class ConfigViewModel : BindableBase
         var tmp = SelectedEndpoint;
         Endpoints = new ObservableCollection<Endpoint>(_analyzerService.GetEndpoints(ProjectPath));
         SelectedEndpoint = Endpoints.FirstOrDefault(x => x.EntityFileName == tmp.EntityFileName);
-    }
-
-    private void InitializeEndpointStatus(Endpoint? endpoint)
-    {
-        if (endpoint == null)
-        {
-            return;
-        }
-
-        ControllerStatus = endpoint.ControllerFileExists ? "OK" : "FEHLT";
-        RepositoryStatus = endpoint.RepositoryFileExists ? "OK" : "FEHLT";
-        ServiceStatus = endpoint.ServiceFileExists ? "OK" : "FEHLT";
-        ServiceImplStatus = endpoint.ServiceImplFileExists ? "OK" : "FEHLT";
-        AddRequestStatus = endpoint.AddRequestFileExists ? "OK" : "FEHLT";
-        GetRequestStatus = endpoint.GetRequestFileExists ? "OK" : "FEHLT";
-        EditRequestStatus = endpoint.EditRequestFileExists ? "OK" : "FEHLT";
-        DeleteRequestStatus = endpoint.DeleteRequestFileExists ? "OK" : "FEHLT";
-        SearchRequestStatus = endpoint.SearchRequestFileExists ? "OK" : "FEHLT";
-        ResponseStatus = endpoint.ResponseFileExists ? "OK" : "FEHLT";
-
-        RefreshButtonStatus();
-    }
-
-    private void RefreshButtonStatus()
-    {
-        RaisePropertyChanged(nameof(ControllerAddButtonEnabled));
-        RaisePropertyChanged(nameof(ControllerRemoveButtonEnabled));
-        RaisePropertyChanged(nameof(RepositoryAddButtonEnabled));
-        RaisePropertyChanged(nameof(RepositoryRemoveButtonEnabled));
-        RaisePropertyChanged(nameof(ResponseAddButtonEnabled));
-        RaisePropertyChanged(nameof(ResponseRemoveButtonEnabled));
-        RaisePropertyChanged(nameof(AddRequestAddButtonEnabled));
-        RaisePropertyChanged(nameof(AddRequestRemoveButtonEnabled));
-        RaisePropertyChanged(nameof(EditRequestAddButtonEnabled));
-        RaisePropertyChanged(nameof(EditRequestRemoveButtonEnabled));
-        RaisePropertyChanged(nameof(DeleteRequestAddButtonEnabled));
-        RaisePropertyChanged(nameof(DeleteRequestRemoveButtonEnabled));
-        RaisePropertyChanged(nameof(GetRequestAddButtonEnabled));
-        RaisePropertyChanged(nameof(GetRequestRemoveButtonEnabled));
-        RaisePropertyChanged(nameof(SearchRequestAddButtonEnabled));
-        RaisePropertyChanged(nameof(SearchRequestRemoveButtonEnabled));
-        RaisePropertyChanged(nameof(ServiceAddButtonEnabled));
-        RaisePropertyChanged(nameof(ServiceRemoveButtonEnabled));
-        RaisePropertyChanged(nameof(ServiceImplAddButtonEnabled));
-        RaisePropertyChanged(nameof(ServiceImplRemoveButtonEnabled));
-        RaisePropertyChanged(nameof(ControllerStatusColor));
-        RaisePropertyChanged(nameof(RepositoryStatusColor));
-        RaisePropertyChanged(nameof(ResponseStatusColor));
-        RaisePropertyChanged(nameof(AddRequestStatusColor));
-        RaisePropertyChanged(nameof(EditRequestStatusColor));
-        RaisePropertyChanged(nameof(DeleteRequestStatusColor));
-        RaisePropertyChanged(nameof(GetRequestStatusColor));
-        RaisePropertyChanged(nameof(SearchRequestStatusColor));
-        RaisePropertyChanged(nameof(ServiceStatusColor));
-        RaisePropertyChanged(nameof(ServiceImplStatusColor));
     }
 }
