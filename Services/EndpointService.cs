@@ -1,7 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using DamagoApiHelper.Models;
 
@@ -9,437 +10,118 @@ namespace DamagoApiHelper.Services;
 
 public class EndpointService : IEndpointService
 {
-    private readonly ITemplateService _templateService;
-    private readonly ITextService _textService;
+    private readonly Assembly assembly = Assembly.GetExecutingAssembly();
 
-    public EndpointService(ITemplateService templateService, ITextService textService)
+    private string _controllersPath = string.Empty;
+    private string _entitiesPath = string.Empty;
+    private string _repositoriesPath = string.Empty;
+    private string _requestsPath = string.Empty;
+    private string _responsesPath = string.Empty;
+    private string _servicesPath = string.Empty;
+
+    public void Add(string srcFile, string destFile, Dictionary<string, string> replacementDictionary)
     {
-        _templateService = templateService;
-        _textService = textService;
+        var template = LoadTemplate(srcFile);
+        template = ReplaceText(template, replacementDictionary);
+        WriteTemplateFile(template, destFile);
     }
 
-    public void AddAddRequest(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
+    public void Remove(string destFile, bool removeEmptyFolder)
     {
-        var template = _templateService.LoadTemplate("AddRequest");
+        if (File.Exists(destFile)) File.Delete(destFile);
 
-        template = _textService.ReplaceText(template, replacementDictionary);
-
-        WriteTemplateFile(template, endpoint.AddRequestFilePath);
-    }
-
-    public void AddController(Endpoint? endpoint, Dictionary<string, string> replacementDictionary)
-    {
-        if (endpoint == null)
+        if (destFile.Contains("Request") && removeEmptyFolder)
         {
-            return;
-        }
+            var folder = Path.GetDirectoryName(destFile);
+            var numFiles = Directory.EnumerateFiles(folder).Count();
 
-        var template = _templateService.LoadTemplate("Controller");
-
-        template = _textService.ReplaceText(template, replacementDictionary);
-
-        WriteTemplateFile(template, $"{endpoint.ProjectPath}\\controllers\\{endpoint.EntityFileName}Controller.java");
-    }
-
-    public void AddDeleteRequest(Endpoint? endpoint, Dictionary<string, string> replacementDictionary)
-    {
-        if (endpoint == null)
-        {
-            return;
-        }
-
-        var template = _templateService.LoadTemplate("DeleteRequest");
-
-        template = _textService.ReplaceText(template, replacementDictionary);
-
-        WriteTemplateFile(template,
-            $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileNameLowerCase}\\Delete{endpoint.EntityFileName}Request.java");
-    }
-
-    public void AddEditRequest(Endpoint? endpoint, Dictionary<string, string> replacementDictionary)
-    {
-        if (endpoint == null)
-        {
-            return;
-        }
-
-        var template = _templateService.LoadTemplate("EditRequest");
-
-        template = _textService.ReplaceText(template, replacementDictionary);
-
-        WriteTemplateFile(template,
-            $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileNameLowerCase}\\Edit{endpoint.EntityFileName}Request.java");
-    }
-
-    public void AddEntity(Endpoint? endpoint, Dictionary<string, string> replacementDictionary)
-    {
-        if (endpoint == null)
-        {
-            return;
-        }
-
-        var template = _templateService.LoadTemplate("Entity");
-
-        template = _textService.ReplaceText(template, replacementDictionary);
-
-        WriteTemplateFile(template, $"{endpoint.ProjectPath}\\entities\\{endpoint.EntityFileName}.java");
-    }
-
-    public void AddGetRequest(Endpoint? endpoint, Dictionary<string, string> replacementDictionary)
-    {
-        if (endpoint == null)
-        {
-            return;
-        }
-
-        var template = _templateService.LoadTemplate("GetRequest");
-
-        template = _textService.ReplaceText(template, replacementDictionary);
-
-        WriteTemplateFile(template,
-            $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileNameLowerCase}\\Get{endpoint.EntityFileName}Request.java");
-    }
-
-    public void AddRepository(Endpoint? endpoint, Dictionary<string, string> replacementDictionary)
-    {
-        if (endpoint == null)
-        {
-            return;
-        }
-
-        var template = _templateService.LoadTemplate("Repository");
-
-        template = _textService.ReplaceText(template, replacementDictionary);
-
-        WriteTemplateFile(template, $"{endpoint.ProjectPath}\\repositories\\{endpoint.EntityFileName}Repository.java");
-    }
-
-    public void AddResponse(Endpoint? endpoint, Dictionary<string, string> replacementDictionary)
-    {
-        if (endpoint == null)
-        {
-            return;
-        }
-
-        var template = _templateService.LoadTemplate("Response");
-
-        template = _textService.ReplaceText(template, replacementDictionary);
-
-        WriteTemplateFile(template, $"{endpoint.ProjectPath}\\responses\\{endpoint.EntityFileName}Response.java");
-    }
-
-    public void AddSearchRequest(Endpoint? endpoint, Dictionary<string, string> replacementDictionary)
-    {
-        if (endpoint == null)
-        {
-            return;
-        }
-
-        var template = _templateService.LoadTemplate("SearchRequest");
-
-        template = _textService.ReplaceText(template, replacementDictionary);
-
-        WriteTemplateFile(template,
-            $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileNameLowerCase}\\Search{endpoint.EntityFileName}Request.java");
-    }
-
-    public void AddService(Endpoint? endpoint, Dictionary<string, string> replacementDictionary)
-    {
-        if (endpoint == null)
-        {
-            return;
-        }
-
-        var template = _templateService.LoadTemplate("Service");
-
-        template = _textService.ReplaceText(template, replacementDictionary);
-
-        WriteTemplateFile(template, $"{endpoint.ProjectPath}\\services\\{endpoint.EntityFileName}Service.java");
-    }
-
-    public void AddServiceImpl(Endpoint? endpoint, Dictionary<string, string> replacementDictionary)
-    {
-        if (endpoint == null)
-        {
-            return;
-        }
-
-        var template = _templateService.LoadTemplate("ServiceImpl");
-
-        template = _textService.ReplaceText(template, replacementDictionary);
-
-        WriteTemplateFile(template, $"{endpoint.ProjectPath}\\services\\{endpoint.EntityFileName}ServiceImpl.java");
-    }
-
-    public void AddSpAdd(Endpoint? endpoint, Dictionary<string, string> replacementDictionary)
-    {
-        if (endpoint == null)
-        {
-            return;
-        }
-
-        var template = _templateService.LoadTemplate("SpAdd");
-        MessageBox.Show(Path.GetFullPath(endpoint.ProjectPath));
-        MessageBox.Show(Path.GetFullPath(
-            $"..\\..\\..\\..\\..\\{endpoint.ProjectPath}\\SqlScripts\\StoredProcedures\\{endpoint.EntityFileName}\\Sp{endpoint.EntityFileName}Add.sql"));
-        return;
-        WriteTemplateFile(template, $"..\\..\\..\\..\\..\\{endpoint.ProjectPath}\\SqlScripts\\StoredProcedures\\{endpoint.EntityFileName}\\Sp{endpoint.EntityFileName}Add.sql");
-    }
-
-    public void AddSpDelete(Endpoint? endpoint, Dictionary<string, string> replacementDictionary)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void AddSpDeletePermanent(Endpoint? endpoint, Dictionary<string, string> replacementDictionary)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void AddSpGet(Endpoint? endpoint, Dictionary<string, string> replacementDictionary)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void AddSpGetById(Endpoint? endpoint, Dictionary<string, string> replacementDictionary)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void AddSpGetDeleted(Endpoint? endpoint, Dictionary<string, string> replacementDictionary)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void AddSpSearch(Endpoint? endpoint, Dictionary<string, string> replacementDictionary)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void AddSpUndelete(Endpoint? endpoint, Dictionary<string, string> replacementDictionary)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void AddSpUpdate(Endpoint? endpoint, Dictionary<string, string> replacementDictionary)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void RemoveAddRequest(Endpoint? endpoint)
-    {
-        if (endpoint == null)
-        {
-            return;
-        }
-
-        RemoveTemplateFile(
-            $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileNameLowerCase}\\Add{endpoint.EntityFileName}Request.java");
-        RemoveRequestDirectory(endpoint);
-    }
-
-    public void RemoveController(Endpoint? endpoint)
-    {
-        if (endpoint == null)
-        {
-            return;
-        }
-
-        RemoveTemplateFile($"{endpoint.ProjectPath}\\controllers\\{endpoint.EntityFileName}Controller.java");
-    }
-
-    public void RemoveDeleteRequest(Endpoint? endpoint)
-    {
-        if (endpoint == null)
-        {
-            return;
-        }
-
-        RemoveTemplateFile(
-            $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileNameLowerCase}\\Delete{endpoint.EntityFileName}Request.java");
-        RemoveRequestDirectory(endpoint);
-    }
-
-    public void RemoveEditRequest(Endpoint? endpoint)
-    {
-        if (endpoint == null)
-        {
-            return;
-        }
-
-        RemoveTemplateFile(
-            $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileNameLowerCase}\\Edit{endpoint.EntityFileName}Request.java");
-        RemoveRequestDirectory(endpoint);
-    }
-
-    public void RemoveEntity(Endpoint? endpoint)
-    {
-        if (endpoint == null)
-        {
-            return;
-        }
-
-        RemoveAddRequest(endpoint);
-        RemoveController(endpoint);
-        RemoveDeleteRequest(endpoint);
-        RemoveEditRequest(endpoint);
-        RemoveGetRequest(endpoint);
-        RemoveRepository(endpoint);
-        RemoveResponse(endpoint);
-        RemoveSearchRequest(endpoint);
-        RemoveService(endpoint);
-        RemoveServiceImpl(endpoint);
-
-        RemoveTemplateFile(endpoint.EntityFilePath);
-    }
-
-    public void RemoveGetRequest(Endpoint? endpoint)
-    {
-        if (endpoint == null)
-        {
-            return;
-        }
-
-        RemoveTemplateFile(
-            $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileNameLowerCase}\\Get{endpoint.EntityFileName}Request.java");
-        RemoveRequestDirectory(endpoint);
-    }
-
-    public void RemoveRepository(Endpoint? endpoint)
-    {
-        if (endpoint == null)
-        {
-            return;
-        }
-
-        RemoveTemplateFile($"{endpoint.ProjectPath}\\repositories\\{endpoint.EntityFileName}Repository.java");
-    }
-
-    public void RemoveResponse(Endpoint? endpoint)
-    {
-        if (endpoint == null)
-        {
-            return;
-        }
-
-        RemoveTemplateFile($"{endpoint.ProjectPath}\\responses\\{endpoint.EntityFileName}Response.java");
-    }
-
-    public void RemoveSearchRequest(Endpoint? endpoint)
-    {
-        if (endpoint == null)
-        {
-            return;
-        }
-
-        RemoveTemplateFile(
-            $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileNameLowerCase}\\Search{endpoint.EntityFileName}Request.java");
-        RemoveRequestDirectory(endpoint);
-    }
-
-    public void RemoveService(Endpoint? endpoint)
-    {
-        if (endpoint == null)
-        {
-            return;
-        }
-
-        RemoveTemplateFile($"{endpoint.ProjectPath}\\services\\{endpoint.EntityFileName}Service.java");
-    }
-
-    public void RemoveServiceImpl(Endpoint? endpoint)
-    {
-        if (endpoint == null)
-        {
-            return;
-        }
-
-        RemoveTemplateFile($"{endpoint.ProjectPath}\\services\\{endpoint.EntityFileName}ServiceImpl.java");
-    }
-
-    public void RemoveSpAdd(Endpoint? endpoint)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void RemoveSpDelete(Endpoint? endpoint)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void RemoveSpDeletePermanent(Endpoint? endpoint)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void RemoveSpGet(Endpoint? endpoint)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void RemoveSpGetById(Endpoint? endpoint)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void RemoveSpGetDeleted(Endpoint? endpoint)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void RemoveSpSearch(Endpoint? endpoint)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void RemoveSpUndelete(Endpoint? endpoint)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void RemoveSpUpdate(Endpoint? endpoint)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void AddEndpoint(Endpoint? endpoint)
-    {
-        if (endpoint == null)
-        {
+            if (numFiles == 0) Directory.Delete(folder);
         }
     }
 
-    public void RemoveEndpoint(Endpoint? endpoint)
+    public ObservableCollection<Endpoint> GetEndpoints(string projectPath)
     {
-        if (endpoint == null)
-        {
-        }
-    }
+        CreatePaths(projectPath);
+        CreateDirectories();
 
-    private void RemoveRequestDirectory(Endpoint? endpoint)
-    {
-        var folderPath = $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileNameLowerCase}";
+        var endpoints = new ObservableCollection<Endpoint>();
+        var entities = new List<string>();
 
-        if (Directory.Exists(folderPath))
+        if (Directory.Exists(_entitiesPath)) entities = Directory.EnumerateFiles(_entitiesPath).ToList();
+
+        foreach (var entity in entities)
         {
-            if (!Directory.EnumerateFiles(folderPath).Any())
+            var endpoint = new Endpoint
             {
-                Directory.Delete(folderPath);
+                ProjectPath = projectPath,
+                EntityName = entity.Split('\\')[^1].Split('.')[^2]
+            };
+
+            endpoints.Add(endpoint);
+        }
+
+        return endpoints;
+    }
+
+    private string LoadTemplate(string templateName)
+    {
+        var templateFile = $"DamagoApiHelper.Templates.{templateName}.txt";
+        return ReadTemplateFile(templateFile);
+    }
+
+    private string ReadTemplateFile(string templateFile)
+    {
+        using (var stream = assembly.GetManifestResourceStream(templateFile))
+        {
+            using (var reader = new StreamReader(stream))
+            {
+                return reader.ReadToEnd();
             }
         }
     }
 
-    private void RemoveTemplateFile(string filePath)
+    private string ReplaceText(string template, Dictionary<string, string> replacementDictionary)
     {
-        if (File.Exists(filePath))
+        foreach (var replacementKeyValuePair in replacementDictionary) template = template.Replace(replacementKeyValuePair.Key, replacementKeyValuePair.Value);
+
+        return template;
+    }
+
+    private void CreateDirectories()
+    {
+        CreateDirectory(_controllersPath);
+        CreateDirectory(_entitiesPath);
+        CreateDirectory(_repositoriesPath);
+        CreateDirectory(_requestsPath);
+        CreateDirectory(_responsesPath);
+        CreateDirectory(_servicesPath);
+    }
+
+    private void CreateDirectory(string path)
+    {
+        if (!Directory.Exists(path))
         {
-            File.Delete(filePath);
+            if (MessageBox.Show($"Das Verzeichnis {path} existiert nicht. Soll das Verzeichnis erstellt werden?",
+                    "Achtung!", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                return;
+
+            Directory.CreateDirectory(path);
         }
+    }
+
+    private void CreatePaths(string projectPath)
+    {
+        _entitiesPath = projectPath + "\\entities";
+        _controllersPath = projectPath + "\\controllers";
+        _requestsPath = projectPath + "\\requests";
+        _responsesPath = projectPath + "\\responses";
+        _servicesPath = projectPath + "\\services";
+        _repositoriesPath = projectPath + "\\repositories";
     }
 
     private void WriteTemplateFile(string template, string filePath)
     {
-        RemoveTemplateFile(filePath);
+        Remove(filePath, false);
         Directory.CreateDirectory(Path.GetDirectoryName(filePath));
         File.WriteAllText(filePath, template);
     }

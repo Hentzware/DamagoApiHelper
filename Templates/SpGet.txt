@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE sp_{{EntityNames}}_Get ()
+﻿CREATE PROCEDURE sp_{{EntityName}}_Get ()
 BEGIN
-    SELECT * FROM {{entityNames}} WHERE is_deleted = false;
+    SELECT * FROM {{entityName}} WHERE is_deleted = false;
 END

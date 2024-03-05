@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE sp_{{EntityNames}}_Delete (IN in_id varchar(36))
+﻿CREATE PROCEDURE sp_{{EntityName}}_Delete (IN in_id varchar(36))
 BEGIN
-    UPDATE {{entityNames}} SET is_deleted = true WHERE id = in_id;
+    UPDATE {{entityName}} SET is_deleted = true WHERE id = in_id;
 END

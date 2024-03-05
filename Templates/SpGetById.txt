@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE sp_{{EntityNames}}_GetById (in in_id varchar(36))
+﻿CREATE PROCEDURE sp_{{EntityName}}_GetById (in in_id varchar(36))
 BEGIN
-    SELECT * FROM {{entityNames}} WHERE id = in_id;
+    SELECT * FROM {{entityName}} WHERE id = in_id;
 END

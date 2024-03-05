@@ -83,6 +83,24 @@ public class Endpoint
 
     public bool ServicesFolderExists => Directory.Exists(ServicesFolderPath);
 
+    public bool SpAddFileExists => File.Exists(SpAddFilePath);
+
+    public bool SpDeleteFileExists => File.Exists(SpDeleteFilePath);
+
+    public bool SpDeletePermanentFileExists => File.Exists(SpDeletePermanentFilePath);
+
+    public bool SpGetByIdFileExists => File.Exists(SpGetByIdFilePath);
+
+    public bool SpGetDeletedFileExists => File.Exists(SpGetDeletedFilePath);
+
+    public bool SpGetFileExists => File.Exists(SpGetFilePath);
+
+    public bool SpSearchFileExists => File.Exists(SpSearchFilePath);
+
+    public bool SpUndeleteFileExists => File.Exists(SpUndeleteFilePath);
+
+    public bool SpUpdateFileExists => File.Exists(SpUpdateFilePath);
+
     public SolidColorBrush AddRequestStatusColor => AddRequestStatus == "OK" ? _colorGreen : _colorRed;
 
     public SolidColorBrush ControllerStatusColor => ControllerStatus == "OK" ? _colorGreen : _colorRed;
@@ -103,14 +121,13 @@ public class Endpoint
 
     public SolidColorBrush ServiceStatusColor => ServiceStatus == "OK" ? _colorGreen : _colorRed;
 
-    public string AddRequestFileName => $"Add{EntityFileName}Request.java";
+    public string AddRequestFileName => $"Add{EntityName}Request.java";
 
-    public string AddRequestFilePath =>
-        Path.Combine(ProjectPath, "requests", EntityFileNameLowerCase, AddRequestFileName);
+    public string AddRequestFilePath => Path.Combine(ProjectPath, "requests", EntityNameLowerCase, AddRequestFileName);
 
     public string AddRequestStatus => AddRequestFileExists ? "OK" : "FEHLT";
 
-    public string ControllerFileName => $"{EntityFileName}Controller.java";
+    public string ControllerFileName => $"{EntityName}Controller.java";
 
     public string ControllerFilePath => Path.Combine(ProjectPath, "controllers", ControllerFileName);
 
@@ -118,43 +135,41 @@ public class Endpoint
 
     public string ControllerStatus => ControllerFileExists ? "OK" : "FEHLT";
 
-    public string DeleteRequestFileName => $"Delete{EntityFileName}Request.java";
+    public string DeleteRequestFileName => $"Delete{EntityName}Request.java";
 
-    public string DeleteRequestFilePath =>
-        Path.Combine(ProjectPath, "requests", EntityFileNameLowerCase, DeleteRequestFileName);
+    public string DeleteRequestFilePath => Path.Combine(ProjectPath, "requests", EntityNameLowerCase, DeleteRequestFileName);
 
     public string DeleteRequestStatus => DeleteRequestFileExists ? "OK" : "FEHLT";
 
-    public string EditRequestFileName => $"Edit{EntityFileName}Request.java";
+    public string EditRequestFileName => $"Edit{EntityName}Request.java";
 
-    public string EditRequestFilePath =>
-        Path.Combine(ProjectPath, "requests", EntityFileNameLowerCase, EditRequestFileName);
+    public string EditRequestFilePath => Path.Combine(ProjectPath, "requests", EntityNameLowerCase, EditRequestFileName);
 
     public string EditRequestStatus => EditRequestFileExists ? "OK" : "FEHLT";
 
     public string EntitiesFolderPath => Path.Combine(ProjectPath, "entities");
 
-    public string EntityFileName => EntityFilePath.Split('\\')[^1].Split('.')[0];
+    public string EntityFileName => $"{EntityName}.java";
 
-    public string EntityFileNameLowerCase => char.ToLower(EntityFileName[0]) + EntityFileName.Substring(1);
+    public string EntityFilePath => Path.Combine(ProjectPath, "entities", EntityFileName);
 
-    public string EntityFilePath { get; set; }
+    public string EntityName { get; set; }
 
-    public string GetRequestFileName => $"Get{EntityFileName}Request.java";
+    public string EntityNameLowerCase => char.ToLower(EntityName[0]) + EntityName.Substring(1);
 
-    public string GetRequestFilePath =>
-        Path.Combine(ProjectPath, "requests", EntityFileNameLowerCase, GetRequestFileName);
+    public string GetRequestFileName => $"Get{EntityName}Request.java";
+
+    public string GetRequestFilePath => Path.Combine(ProjectPath, "requests", EntityNameLowerCase, GetRequestFileName);
 
     public string GetRequestStatus => GetRequestFileExists ? "OK" : "FEHLT";
 
-    public string PackageName => ProjectPath.Split('\\')[^3] + "." + ProjectPath.Split('\\')[^2] + "." +
-                                 ProjectPath.Split('\\')[^1];
+    public string PackageName => ProjectPath.Split('\\')[^3] + "." + ProjectPath.Split('\\')[^2] + "." + ProjectPath.Split('\\')[^1];
 
     public string ProjectPath { get; set; }
 
     public string RepositoriesFolderPath => Path.Combine(ProjectPath, "repositories");
 
-    public string RepositoryFileName => $"{EntityFileName}Repository.java";
+    public string RepositoryFileName => $"{EntityName}Repository.java";
 
     public string RepositoryFilePath => Path.Combine(ProjectPath, "repositories", RepositoryFileName);
 
@@ -162,7 +177,7 @@ public class Endpoint
 
     public string RequestsFolderPath => Path.Combine(ProjectPath, "requests");
 
-    public string ResponseFileName => $"{EntityFileName}Response.java";
+    public string ResponseFileName => $"{EntityName}Response.java";
 
     public string ResponseFilePath => Path.Combine(ProjectPath, "responses", ResponseFileName);
 
@@ -170,18 +185,17 @@ public class Endpoint
 
     public string ResponseStatus => ResponseFileExists ? "OK" : "FEHLT";
 
-    public string SearchRequestFileName => $"Search{EntityFileName}Request.java";
+    public string SearchRequestFileName => $"Search{EntityName}Request.java";
 
-    public string SearchRequestFilePath =>
-        Path.Combine(ProjectPath, "requests", EntityFileNameLowerCase, SearchRequestFileName);
+    public string SearchRequestFilePath => Path.Combine(ProjectPath, "requests", EntityNameLowerCase, SearchRequestFileName);
 
     public string SearchRequestStatus => SearchRequestFileExists ? "OK" : "FEHLT";
 
-    public string ServiceFileName => $"{EntityFileName}Service.java";
+    public string ServiceFileName => $"{EntityName}Service.java";
 
     public string ServiceFilePath => Path.Combine(ProjectPath, "services", ServiceFileName);
 
-    public string ServiceImplFileName => $"{EntityFileName}ServiceImpl.java";
+    public string ServiceImplFileName => $"{EntityName}ServiceImpl.java";
 
     public string ServiceImplFilePath => Path.Combine(ProjectPath, "services", ServiceImplFileName);
 
@@ -191,17 +205,39 @@ public class Endpoint
 
     public string ServiceStatus => ServiceFileExists ? "OK" : "FEHLT";
 
+    public string SpAddFileName => $"sp_{EntityName}_Add.sql";
+
     public string SpAddFilePath { get; set; }
+
+    public string SpDeleteFileName => $"sp_{EntityName}_Delete.sql";
 
     public string SpDeleteFilePath { get; set; }
 
+    public string SpDeletePermanentFileName => $"sp_{EntityName}_DeletePermanent.sql";
+
     public string SpDeletePermanentFilePath { get; set; }
+
+    public string SpGetByIdFileName => $"sp_{EntityName}_GetById.sql";
 
     public string SpGetByIdFilePath { get; set; }
 
+    public string SpGetDeletedFileName => $"sp_{EntityName}_GetDeleted.sql";
+
     public string SpGetDeletedFilePath { get; set; }
+
+    public string SpGetFileName => $"sp_{EntityName}_Get.sql";
 
     public string SpGetFilePath { get; set; }
 
+    public string SpSearchFileName => $"sp_{EntityName}_Search.sql";
+
     public string SpSearchFilePath { get; set; }
+
+    public string SpUndeleteFileName => $"sp_{EntityName}_Undelete.sql";
+
+    public string SpUndeleteFilePath { get; set; }
+
+    public string SpUpdateFileName => $"sp_{EntityName}_Update.sql";
+
+    public string SpUpdateFilePath { get; set; }
 }

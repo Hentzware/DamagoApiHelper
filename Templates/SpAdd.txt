@@ -1,6 +1,6 @@
-﻿CREATE PROCEDURE sp_{{EntityNames}}_Add (IN in_placeholder varchar(100), OUT out_id VARCHAR(36))
+﻿CREATE PROCEDURE sp_{{EntityName}}_Add (IN in_placeholder varchar(100), OUT out_id VARCHAR(36))
 BEGIN
     SET out_id = UUID();
-    INSERT INTO {{entityNames}} (id, placeholder, is_deleted)
+    INSERT INTO {{entityName}} (id, placeholder, is_deleted)
         VALUES (out_id, in_placeholder, false);
 END

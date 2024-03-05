@@ -12,7 +12,6 @@ namespace DamagoApiHelper.ViewModels;
 
 public class ConfigViewModel : BindableBase
 {
-    private readonly IAnalyzerService _analyzerService;
     private readonly IEndpointService _endpointService;
     private bool _entityAddButtonEnabled;
     private bool _entityRemoveButtonEnabled;
@@ -25,9 +24,8 @@ public class ConfigViewModel : BindableBase
     private string _entityNamePlural;
     private string _projectPath;
 
-    public ConfigViewModel(IAnalyzerService analyzerService, IEndpointService endpointService)
+    public ConfigViewModel(IEndpointService endpointService)
     {
-        _analyzerService = analyzerService;
         _endpointService = endpointService;
     }
 
@@ -64,7 +62,7 @@ public class ConfigViewModel : BindableBase
 
             if (value != null)
             {
-                EntityName = value.EntityFileName;
+                EntityName = value.EntityName;
             }
 
             RaisePropertyChanged(nameof(EntityRemoveButtonEnabled));
@@ -93,7 +91,7 @@ public class ConfigViewModel : BindableBase
         set => SetProperty(ref _entityNamePlural, value);
     }
 
-    public string EntityNamePluralLowerCase => char.ToLower(EntityNamePlural[0]) + EntityNamePlural.Substring(1);
+    public string EntityNamePluralLowerCase => !string.IsNullOrEmpty(EntityNamePlural) ? char.ToLower(EntityNamePlural[0]) + EntityNamePlural.Substring(1) : EntityName + "s";
 
     public string ProjectPath
     {
@@ -108,78 +106,87 @@ public class ConfigViewModel : BindableBase
             { "{{projectPath}}", endpoint.PackageName },
             { "{{EntityName}}", endpoint.EntityFileName },
             { "{{EntityNames}}", EntityNamePlural },
-            { "{{entityName}}", endpoint.EntityFileNameLowerCase },
+            { "{{entityName}}", endpoint.EntityNameLowerCase },
             { "{{entityNames}}", EntityNamePluralLowerCase }
         };
     }
 
-    private void ExecuteAddCommand(string obj)
+    private void ExecuteAddCommand(string templateFile)
     {
         var tmp = SelectedEndpoint;
 
-        switch (obj)
+        switch (templateFile)
         {
             case "Entity":
                 var endpoint = new Endpoint
                 {
                     ProjectPath = ProjectPath,
-                    EntityFilePath = $"{ProjectPath}\\entities\\{EntityName}.java"
+                    EntityName = EntityName
                 };
-                _endpointService.AddEntity(endpoint, GetReplacementDictionary(endpoint));
+                _endpointService.Add(templateFile, endpoint.EntityFilePath, GetReplacementDictionary(endpoint));
                 Endpoints.Add(endpoint);
                 tmp = endpoint;
                 break;
             case "Controller":
-                _endpointService.AddController(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.Add(templateFile, SelectedEndpoint.ControllerFilePath, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "AddRequest":
-                _endpointService.AddAddRequest(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.Add(templateFile, SelectedEndpoint.AddRequestFilePath, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "EditRequest":
-                _endpointService.AddEditRequest(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.Add(templateFile, SelectedEndpoint.EditRequestFilePath, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "DeleteRequest":
-                _endpointService.AddDeleteRequest(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.Add(templateFile, SelectedEndpoint.DeleteRequestFilePath, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "GetRequest":
-                _endpointService.AddGetRequest(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.Add(templateFile, SelectedEndpoint.GetRequestFilePath, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "SearchRequest":
-                _endpointService.AddSearchRequest(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.Add(templateFile, SelectedEndpoint.SearchRequestFilePath, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "Response":
-                _endpointService.AddResponse(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.Add(templateFile, SelectedEndpoint.ResponseFilePath, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "Service":
-                _endpointService.AddService(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.Add(templateFile, SelectedEndpoint.ServiceFilePath, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "ServiceImpl":
-                _endpointService.AddServiceImpl(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.Add(templateFile, SelectedEndpoint.ServiceImplFilePath, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "Repository":
-                _endpointService.AddRepository(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.Add(templateFile, SelectedEndpoint.RepositoryFilePath, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "SpAdd":
+                _endpointService.Add(templateFile, SelectedEndpoint.SpAddFilePath, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "SpDelete":
+                _endpointService.Add(templateFile, SelectedEndpoint.SpDeleteFilePath, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "SpDeletePermanent":
+                _endpointService.Add(templateFile, SelectedEndpoint.SpDeletePermanentFilePath, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "SpGet":
+                _endpointService.Add(templateFile, SelectedEndpoint.SpGetFilePath, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "SpGetById":
+                _endpointService.Add(templateFile, SelectedEndpoint.SpGetByIdFilePath, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "SpGetDeleted":
+                _endpointService.Add(templateFile, SelectedEndpoint.SpGetDeletedFilePath, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "SpSearch":
+                _endpointService.Add(templateFile, SelectedEndpoint.SpSearchFilePath, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "SpUndelete":
+                _endpointService.Add(templateFile, SelectedEndpoint.SpUndeleteFilePath, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "SpUpdate":
+                _endpointService.Add(templateFile, SelectedEndpoint.SpUpdateFilePath, GetReplacementDictionary(SelectedEndpoint));
                 break;
         }
 
-        Endpoints = new ObservableCollection<Endpoint>(_analyzerService.GetEndpoints(ProjectPath));
+        Endpoints = new ObservableCollection<Endpoint>(_endpointService.GetEndpoints(ProjectPath));
         SelectedEndpoint = Endpoints.FirstOrDefault(x => x.EntityFileName == tmp.EntityFileName);
     }
 
@@ -195,45 +202,45 @@ public class ConfigViewModel : BindableBase
             ProjectPath = dialog.FileName;
         }
 
-        Endpoints = _analyzerService.GetEndpoints(ProjectPath);
+        Endpoints = _endpointService.GetEndpoints(ProjectPath);
     }
 
-    private void ExecuteRemoveCommand(string obj)
+    private void ExecuteRemoveCommand(string templateFile)
     {
-        switch (obj)
+        switch (templateFile)
         {
             case "Entity":
-                _endpointService.RemoveEntity(SelectedEndpoint);
+                _endpointService.Remove(SelectedEndpoint.EntityFilePath, false);
                 break;
             case "Controller":
-                _endpointService.RemoveController(SelectedEndpoint);
+                _endpointService.Remove(SelectedEndpoint.ControllerFilePath, false);
                 break;
             case "AddRequest":
-                _endpointService.RemoveAddRequest(SelectedEndpoint);
+                _endpointService.Remove(SelectedEndpoint.AddRequestFilePath, true);
                 break;
             case "EditRequest":
-                _endpointService.RemoveEditRequest(SelectedEndpoint);
+                _endpointService.Remove(SelectedEndpoint.EditRequestFilePath, true);
                 break;
             case "DeleteRequest":
-                _endpointService.RemoveDeleteRequest(SelectedEndpoint);
+                _endpointService.Remove(SelectedEndpoint.DeleteRequestFilePath, true);
                 break;
             case "GetRequest":
-                _endpointService.RemoveGetRequest(SelectedEndpoint);
+                _endpointService.Remove(SelectedEndpoint.GetRequestFilePath, true);
                 break;
             case "SearchRequest":
-                _endpointService.RemoveSearchRequest(SelectedEndpoint);
+                _endpointService.Remove(SelectedEndpoint.SearchRequestFilePath, true);
                 break;
             case "Response":
-                _endpointService.RemoveResponse(SelectedEndpoint);
+                _endpointService.Remove(SelectedEndpoint.ResponseFilePath, false);
                 break;
             case "Service":
-                _endpointService.RemoveService(SelectedEndpoint);
+                _endpointService.Remove(SelectedEndpoint.ServiceFilePath, false);
                 break;
             case "ServiceImpl":
-                _endpointService.RemoveServiceImpl(SelectedEndpoint);
+                _endpointService.Remove(SelectedEndpoint.ServiceImplFilePath, false);
                 break;
             case "Repository":
-                _endpointService.RemoveRepository(SelectedEndpoint);
+                _endpointService.Remove(SelectedEndpoint.RepositoryFilePath, false);
                 break;
             case "SpAdd":
                 break;
@@ -256,7 +263,7 @@ public class ConfigViewModel : BindableBase
         }
 
         var tmp = SelectedEndpoint;
-        Endpoints = new ObservableCollection<Endpoint>(_analyzerService.GetEndpoints(ProjectPath));
+        Endpoints = new ObservableCollection<Endpoint>(_endpointService.GetEndpoints(ProjectPath));
         SelectedEndpoint = Endpoints.FirstOrDefault(x => x.EntityFileName == tmp.EntityFileName);
     }
 }

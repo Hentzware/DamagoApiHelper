@@ -35,7 +35,7 @@
                     <ListBox
                         MinHeight="300"
                         MaxHeight="300"
-                        DisplayMemberPath="EntityFileName"
+                        DisplayMemberPath="EntityName"
                         ItemsSource="{Binding Endpoints, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         SelectedItem="{Binding SelectedEndpoint, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBox
