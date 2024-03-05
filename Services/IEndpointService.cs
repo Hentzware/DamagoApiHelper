@@ -5,7 +5,7 @@ namespace DamagoApiHelper.Services;
 
 public interface IEndpointService
 {
-    void AddAddRequest(Endpoint? endpoint, Dictionary<string, string> replacementDictionary);
+    void AddAddRequest(Endpoint endpoint, Dictionary<string, string> replacementDictionary);
 
     void AddController(Endpoint? endpoint, Dictionary<string, string> replacementDictionary);
 

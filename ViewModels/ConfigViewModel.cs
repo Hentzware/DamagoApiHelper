@@ -130,8 +130,7 @@ public class ConfigViewModel : BindableBase
                 tmp = endpoint;
                 break;
             case "Controller":
-                _endpointService.AddSpAdd(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
-                //_endpointService.AddController(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.AddController(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));
                 break;
             case "AddRequest":
                 _endpointService.AddAddRequest(SelectedEndpoint, GetReplacementDictionary(SelectedEndpoint));

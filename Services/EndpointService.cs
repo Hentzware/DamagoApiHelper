@@ -18,19 +18,13 @@ public class EndpointService : IEndpointService
         _textService = textService;
     }
 
-    public void AddAddRequest(Endpoint? endpoint, Dictionary<string, string> replacementDictionary)
+    public void AddAddRequest(Endpoint endpoint, Dictionary<string, string> replacementDictionary)
     {
-        if (endpoint == null)
-        {
-            return;
-        }
-
         var template = _templateService.LoadTemplate("AddRequest");
 
         template = _textService.ReplaceText(template, replacementDictionary);
 
-        WriteTemplateFile(template,
-            $"{endpoint.ProjectPath}\\requests\\{endpoint.EntityFileNameLowerCase}\\Add{endpoint.EntityFileName}Request.java");
+        WriteTemplateFile(template, endpoint.AddRequestFilePath);
     }
 
     public void AddController(Endpoint? endpoint, Dictionary<string, string> replacementDictionary)
