@@ -104,7 +104,7 @@ public class ConfigViewModel : BindableBase
         return new Dictionary<string, string>
         {
             { "{{projectPath}}", endpoint.PackageName },
-            { "{{EntityName}}", endpoint.EntityFileName },
+            { "{{EntityName}}", endpoint.EntityName },
             { "{{EntityNames}}", EntityNamePlural },
             { "{{entityName}}", endpoint.EntityNameLowerCase },
             { "{{entityNames}}", EntityNamePluralLowerCase }

@@ -63,30 +63,6 @@ public class EndpointService : IEndpointService
         return endpoints;
     }
 
-    private string LoadTemplate(string templateName)
-    {
-        var templateFile = $"DamagoApiHelper.Templates.{templateName}.txt";
-        return ReadTemplateFile(templateFile);
-    }
-
-    private string ReadTemplateFile(string templateFile)
-    {
-        using (var stream = assembly.GetManifestResourceStream(templateFile))
-        {
-            using (var reader = new StreamReader(stream))
-            {
-                return reader.ReadToEnd();
-            }
-        }
-    }
-
-    private string ReplaceText(string template, Dictionary<string, string> replacementDictionary)
-    {
-        foreach (var replacementKeyValuePair in replacementDictionary) template = template.Replace(replacementKeyValuePair.Key, replacementKeyValuePair.Value);
-
-        return template;
-    }
-
     private void CreateDirectories()
     {
         CreateDirectory(_controllersPath);
@@ -117,6 +93,30 @@ public class EndpointService : IEndpointService
         _responsesPath = projectPath + "\\responses";
         _servicesPath = projectPath + "\\services";
         _repositoriesPath = projectPath + "\\repositories";
+    }
+
+    private string LoadTemplate(string templateName)
+    {
+        var templateFile = $"DamagoApiHelper.Templates.{templateName}.txt";
+        return ReadTemplateFile(templateFile);
+    }
+
+    private string ReadTemplateFile(string templateFile)
+    {
+        using (var stream = assembly.GetManifestResourceStream(templateFile))
+        {
+            using (var reader = new StreamReader(stream))
+            {
+                return reader.ReadToEnd();
+            }
+        }
+    }
+
+    private string ReplaceText(string template, Dictionary<string, string> replacementDictionary)
+    {
+        foreach (var replacementKeyValuePair in replacementDictionary) template = template.Replace(replacementKeyValuePair.Key, replacementKeyValuePair.Value);
+
+        return template;
     }
 
     private void WriteTemplateFile(string template, string filePath)

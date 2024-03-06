@@ -8,29 +8,29 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public interface {{EntityName}}Repository extends JpaRepository<{{EntityName}}, String> {
     @Procedure
-    String sp_{{EntityNames}}_Add();
+    String sp_{{EntityName}}_Add();
 
     @Procedure
-    void sp_{{EntityNames}}_Delete(String id);
+    void sp_{{EntityName}}_Delete(String id);
 
     @Procedure
-    void sp_{{EntityNames}}_DeletePermanent(String id);
+    void sp_{{EntityName}}_DeletePermanent(String id);
 
     @Procedure
-    Iterable<{{EntityName}}> sp_{{EntityNames}}_Get();
+    Iterable<{{EntityName}}> sp_{{EntityName}}_Get();
 
     @Procedure
-    {{EntityName}} sp_{{EntityNames}}_GetById(String id);
+    {{EntityName}} sp_{{EntityName}}_GetById(String id);
 
     @Procedure
-    Iterable<{{EntityName}}> sp_{{EntityNames}}_GetDeleted();
+    Iterable<{{EntityName}}> sp_{{EntityName}}_GetDeleted();
 
     @Procedure
-    Iterable<{{EntityName}}> sp_{{EntityNames}}_Search();
+    Iterable<{{EntityName}}> sp_{{EntityName}}_Search();
 
     @Procedure
-    void sp_{{EntityNames}}_Undelete(String id);
+    void sp_{{EntityName}}_Undelete(String id);
 
     @Procedure
-    void sp_{{EntityNames}}_Update(String id);
+    void sp_{{EntityName}}_Update(String id);
 }

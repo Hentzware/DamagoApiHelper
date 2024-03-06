@@ -20,24 +20,24 @@ public class {{EntityName}}ServiceImpl implements {{EntityName}}Service {
 
     @Override
     public {{EntityName}}Response Add(Add{{EntityName}}Request request) {
-        String id = {{entityName}}Repository.sp_{{EntityNames}}_Add();
-        {{EntityName}} {{entityName}} = {{entityName}}Repository.sp_{{EntityNames}}_GetById(id);
+        String id = {{entityName}}Repository.sp_{{EntityName}}_Add();
+        {{EntityName}} {{entityName}} = {{entityName}}Repository.sp_{{EntityName}}_GetById(id);
         return modelMapper.map({{entityName}}, {{EntityName}}Response.class);
     }
 
     @Override
     public void Delete(Delete{{EntityName}}Request request, boolean permanent) {
         if (permanent) {
-            {{entityName}}Repository.sp_{{EntityNames}}_DeletePermanent(request.getId());
+            {{entityName}}Repository.sp_{{EntityName}}_DeletePermanent(request.getId());
             return;
         }
-        {{entityName}}Repository.sp_{{EntityNames}}_Delete(request.getId());
+        {{entityName}}Repository.sp_{{EntityName}}_Delete(request.getId());
     }
 
     @Override
     public {{EntityName}}Response Edit(Edit{{EntityName}}Request request) {
-        {{entityName}}Repository.sp_{{EntityNames}}_Update(request.getId());
-        {{EntityName}} {{entityName}} = {{entityName}}Repository.sp_{{EntityNames}}_GetById(request.getId());
+        {{entityName}}Repository.sp_{{EntityName}}_Update(request.getId());
+        {{EntityName}} {{entityName}} = {{entityName}}Repository.sp_{{EntityName}}_GetById(request.getId());
         return modelMapper.map({{entityName}}, {{EntityName}}Response.class);
     }
 
@@ -46,9 +46,9 @@ public class {{EntityName}}ServiceImpl implements {{EntityName}}Service {
         Iterable<{{EntityName}}> {{entityNames}};
 
         if (deleted) {
-            {{entityNames}} = {{entityName}}Repository.sp_{{EntityNames}}_GetDeleted();
+            {{entityNames}} = {{entityName}}Repository.sp_{{EntityName}}_GetDeleted();
         } else {
-            {{entityNames}} = {{entityName}}Repository.sp_{{EntityNames}}_Get();
+            {{entityNames}} = {{entityName}}Repository.sp_{{EntityName}}_Get();
         }
 
         return modelMapper.map({{entityNames}}, new TypeToken<Iterable<{{EntityName}}Response>>() {
@@ -57,13 +57,13 @@ public class {{EntityName}}ServiceImpl implements {{EntityName}}Service {
 
     @Override
     public {{EntityName}}Response GetById(Get{{EntityName}}Request request) {
-        {{EntityName}} {{entityName}} = {{entityName}}Repository.sp_{{EntityNames}}_GetById(request.getId());
+        {{EntityName}} {{entityName}} = {{entityName}}Repository.sp_{{EntityName}}_GetById(request.getId());
         return modelMapper.map({{entityName}}, {{EntityName}}Response.class);
     }
 
     @Override
     public Iterable<{{EntityName}}Response> Search(Search{{EntityName}}Request request) {
-        Iterable<{{EntityName}}> {{entityNames}} = {{entityName}}Repository.sp_{{EntityNames}}_Search();
+        Iterable<{{EntityName}}> {{entityNames}} = {{entityName}}Repository.sp_{{EntityName}}_Search();
         return modelMapper.map({{entityNames}}, new TypeToken<Iterable<{{EntityName}}Response>>() {
         }.getType());
     }
