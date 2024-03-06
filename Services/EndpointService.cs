@@ -30,7 +30,7 @@ public class EndpointService : IEndpointService
     {
         if (File.Exists(destFile)) File.Delete(destFile);
 
-        if (destFile.Contains("Request") && removeEmptyFolder)
+        if (removeEmptyFolder)
         {
             var folder = Path.GetDirectoryName(destFile);
             var numFiles = Directory.EnumerateFiles(folder).Count();

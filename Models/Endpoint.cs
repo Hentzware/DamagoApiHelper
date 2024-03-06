@@ -187,57 +187,133 @@ public class Endpoint
 
     public SolidColorBrush ServiceStatusColor => ServiceStatus == "OK" ? _colorGreen : _colorRed;
 
+    public bool SpAddAddButtonEnabled => !SpAddFileExists;
+
     public bool SpAddFileExists => File.Exists(SpAddFilePath);
 
     public string SpAddFileName => $"sp_{EntityName}_Add.sql";
 
-    public string SpAddFilePath { get; set; }
+    public string SpAddFilePath => Path.GetFullPath(Path.Combine(ProjectPath, SqlScriptsFolderPathRelative, EntityName, SpAddFileName));
+
+    public bool SpAddRemoveButtonEnabled => SpAddFileExists;
+
+    public string SpAddStatus => SpAddFileExists ? "OK" : "FEHLT";
+
+    public SolidColorBrush SpAddStatusColor => SpAddStatus == "OK" ? _colorGreen : _colorRed;
+
+    public bool SpDeleteAddButtonEnabled => !SpDeleteFileExists;
 
     public bool SpDeleteFileExists => File.Exists(SpDeleteFilePath);
 
     public string SpDeleteFileName => $"sp_{EntityName}_Delete.sql";
 
-    public string SpDeleteFilePath { get; set; }
+    public string SpDeleteFilePath => Path.GetFullPath(Path.Combine(ProjectPath, SqlScriptsFolderPathRelative, EntityName, SpDeleteFileName));
+
+    public bool SpDeletePermanentAddButtonEnabled => !SpDeletePermanentFileExists;
 
     public bool SpDeletePermanentFileExists => File.Exists(SpDeletePermanentFilePath);
 
     public string SpDeletePermanentFileName => $"sp_{EntityName}_DeletePermanent.sql";
 
-    public string SpDeletePermanentFilePath { get; set; }
+    public string SpDeletePermanentFilePath => Path.GetFullPath(Path.Combine(ProjectPath, SqlScriptsFolderPathRelative, EntityName, SpDeletePermanentFileName));
+
+    public bool SpDeletePermanentRemoveButtonEnabled => SpDeletePermanentFileExists;
+
+    public string SpDeletePermanentStatus => SpDeletePermanentFileExists ? "OK" : "FEHLT";
+
+    public SolidColorBrush SpDeletePermanentStatusColor => SpDeletePermanentStatus == "OK" ? _colorGreen : _colorRed;
+
+    public bool SpDeleteRemoveButtonEnabled => SpDeleteFileExists;
+
+    public string SpDeleteStatus => SpDeleteFileExists ? "OK" : "FEHLT";
+
+    public SolidColorBrush SpDeleteStatusColor => SpDeleteStatus == "OK" ? _colorGreen : _colorRed;
+
+    public bool SpFolderExists => Directory.Exists(Path.Combine(ProjectPath, SqlScriptsFolderPathRelative, EntityName));
+
+    public bool SpGetAddButtonEnabled => !SpGetFileExists;
+
+    public bool SpGetByIdAddButtonEnabled => !SpGetByIdFileExists;
 
     public bool SpGetByIdFileExists => File.Exists(SpGetByIdFilePath);
 
     public string SpGetByIdFileName => $"sp_{EntityName}_GetById.sql";
 
-    public string SpGetByIdFilePath { get; set; }
+    public string SpGetByIdFilePath => Path.GetFullPath(Path.Combine(ProjectPath, SqlScriptsFolderPathRelative, EntityName, SpGetByIdFileName));
+
+    public bool SpGetByIdRemoveButtonEnabled => SpGetByIdFileExists;
+
+    public string SpGetByIdStatus => SpGetByIdFileExists ? "OK" : "FEHLT";
+
+    public SolidColorBrush SpGetByIdStatusColor => SpGetByIdStatus == "OK" ? _colorGreen : _colorRed;
+
+    public bool SpGetDeletedAddButtonEnabled => !SpGetDeletedFileExists;
 
     public bool SpGetDeletedFileExists => File.Exists(SpGetDeletedFilePath);
 
     public string SpGetDeletedFileName => $"sp_{EntityName}_GetDeleted.sql";
 
-    public string SpGetDeletedFilePath { get; set; }
+    public string SpGetDeletedFilePath => Path.GetFullPath(Path.Combine(ProjectPath, SqlScriptsFolderPathRelative, EntityName, SpGetDeletedFileName));
+
+    public bool SpGetDeletedRemoveButtonEnabled => SpGetDeletedFileExists;
+
+    public string SpGetDeletedStatus => SpGetDeletedFileExists ? "OK" : "FEHLT";
+
+    public SolidColorBrush SpGetDeletedStatusColor => SpGetDeletedStatus == "OK" ? _colorGreen : _colorRed;
 
     public bool SpGetFileExists => File.Exists(SpGetFilePath);
 
     public string SpGetFileName => $"sp_{EntityName}_Get.sql";
 
-    public string SpGetFilePath { get; set; }
+    public string SpGetFilePath => Path.GetFullPath(Path.Combine(ProjectPath, SqlScriptsFolderPathRelative, EntityName, SpGetFileName));
+
+    public bool SpGetRemoveButtonEnabled => SpGetFileExists;
+
+    public string SpGetStatus => SpGetFileExists ? "OK" : "FEHLT";
+
+    public SolidColorBrush SpGetStatusColor => SpGetStatus == "OK" ? _colorGreen : _colorRed;
+
+    public bool SpSearchAddButtonEnabled => !SpSearchFileExists;
 
     public bool SpSearchFileExists => File.Exists(SpSearchFilePath);
 
     public string SpSearchFileName => $"sp_{EntityName}_Search.sql";
 
-    public string SpSearchFilePath { get; set; }
+    public string SpSearchFilePath => Path.GetFullPath(Path.Combine(ProjectPath, SqlScriptsFolderPathRelative, EntityName, SpSearchFileName));
+
+    public bool SpSearchRemoveButtonEnabled => SpSearchFileExists;
+
+    public string SpSearchStatus => SpSearchFileExists ? "OK" : "FEHLT";
+
+    public SolidColorBrush SpSearchStatusColor => SpSearchStatus == "OK" ? _colorGreen : _colorRed;
+
+    public bool SpUndeleteAddButtonEnabled => !SpUndeleteFileExists;
 
     public bool SpUndeleteFileExists => File.Exists(SpUndeleteFilePath);
 
     public string SpUndeleteFileName => $"sp_{EntityName}_Undelete.sql";
 
-    public string SpUndeleteFilePath { get; set; }
+    public string SpUndeleteFilePath => Path.GetFullPath(Path.Combine(ProjectPath, SqlScriptsFolderPathRelative, EntityName, SpUndeleteFileName));
+
+    public bool SpUndeleteRemoveButtonEnabled => SpUndeleteFileExists;
+
+    public string SpUndeleteStatus => SpUndeleteFileExists ? "OK" : "FEHLT";
+
+    public SolidColorBrush SpUndeleteStatusColor => SpUndeleteStatus == "OK" ? _colorGreen : _colorRed;
+
+    public bool SpUpdateAddButtonEnabled => !SpUpdateFileExists;
 
     public bool SpUpdateFileExists => File.Exists(SpUpdateFilePath);
 
     public string SpUpdateFileName => $"sp_{EntityName}_Update.sql";
 
-    public string SpUpdateFilePath { get; set; }
+    public string SpUpdateFilePath => Path.GetFullPath(Path.Combine(ProjectPath, SqlScriptsFolderPathRelative, EntityName, SpUpdateFileName));
+
+    public bool SpUpdateRemoveButtonEnabled => SpUpdateFileExists;
+
+    public string SpUpdateStatus => SpUpdateFileExists ? "OK" : "FEHLT";
+
+    public SolidColorBrush SpUpdateStatusColor => SpUpdateStatus == "OK" ? _colorGreen : _colorRed;
+
+    public string SqlScriptsFolderPathRelative => "..\\..\\..\\..\\..\\..\\SqlScripts\\Stored Procedures";
 }

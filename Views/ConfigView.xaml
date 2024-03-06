@@ -450,40 +450,6 @@
                             Width="120"
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
-                            Content="Create Table" />
-                        <Label
-                            Width="100"
-                            VerticalAlignment="Center"
-                            HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center"
-                            d:Background="Green"
-                            d:Content="OK"
-                            Background="{Binding SpCreateTableStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            BorderBrush="Black"
-                            BorderThickness="2"
-                            Content="{Binding SpCreateTableStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            FontSize="10" />
-                        <Button
-                            Width="90"
-                            Margin="10,0"
-                            VerticalAlignment="Center"
-                            Command="{Binding AddCommand}"
-                            CommandParameter="SpCreateTable"
-                            Content="Hinzufügen"
-                            IsEnabled="{Binding SpCreateTableAddButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
-                        <Button
-                            Width="90"
-                            VerticalAlignment="Center"
-                            Command="{Binding RemoveCommand}"
-                            CommandParameter="SpCreateTable"
-                            Content="Entfernen"
-                            IsEnabled="{Binding SpCreateTableRemoveButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
-                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
-                        <Label
-                            Width="120"
-                            HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center"
                             Content="Add" />
                         <Label
                             Width="100"
@@ -492,10 +458,10 @@
                             VerticalContentAlignment="Center"
                             d:Background="Green"
                             d:Content="OK"
-                            Background="{Binding SpAddStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Background="{Binding SelectedEndpoint.SpAddStatusColor, UpdateSourceTrigger=PropertyChanged}"
                             BorderBrush="Black"
                             BorderThickness="2"
-                            Content="{Binding SpAddStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Content="{Binding SelectedEndpoint.SpAddStatus, UpdateSourceTrigger=PropertyChanged}"
                             FontSize="10" />
                         <Button
                             Width="90"
@@ -504,14 +470,14 @@
                             Command="{Binding AddCommand}"
                             CommandParameter="SpAdd"
                             Content="Hinzufügen"
-                            IsEnabled="{Binding SpAddAddButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
+                            IsEnabled="{Binding SelectedEndpoint.SpAddAddButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
                         <Button
                             Width="90"
                             VerticalAlignment="Center"
-                            Command="{Binding SpAddRemoveButtonEnabled}"
+                            Command="{Binding RemoveCommand}"
                             CommandParameter="SpAdd"
                             Content="Entfernen"
-                            IsEnabled="{Binding ResponseRemoveButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
+                            IsEnabled="{Binding SelectedEndpoint.SpAddRemoveButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <Label
@@ -526,10 +492,10 @@
                             VerticalContentAlignment="Center"
                             d:Background="Green"
                             d:Content="OK"
-                            Background="{Binding SpGetStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Background="{Binding SelectedEndpoint.SpGetStatusColor, UpdateSourceTrigger=PropertyChanged}"
                             BorderBrush="Black"
                             BorderThickness="2"
-                            Content="{Binding SpGetStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Content="{Binding SelectedEndpoint.SpGetStatus, UpdateSourceTrigger=PropertyChanged}"
                             FontSize="10" />
                         <Button
                             Width="90"
@@ -538,14 +504,14 @@
                             Command="{Binding AddCommand}"
                             CommandParameter="SpGet"
                             Content="Hinzufügen"
-                            IsEnabled="{Binding SpGetAddButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
+                            IsEnabled="{Binding SelectedEndpoint.SpGetAddButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
                         <Button
                             Width="90"
                             VerticalAlignment="Center"
                             Command="{Binding RemoveCommand}"
                             CommandParameter="SpGet"
                             Content="Entfernen"
-                            IsEnabled="{Binding SpGetRemoveButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
+                            IsEnabled="{Binding SelectedEndpoint.SpGetRemoveButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <Label
@@ -560,10 +526,10 @@
                             VerticalContentAlignment="Center"
                             d:Background="Green"
                             d:Content="OK"
-                            Background="{Binding SpGetDeletedStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Background="{Binding SelectedEndpoint.SpGetDeletedStatusColor, UpdateSourceTrigger=PropertyChanged}"
                             BorderBrush="Black"
                             BorderThickness="2"
-                            Content="{Binding SpGetDeletedStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Content="{Binding SelectedEndpoint.SpGetDeletedStatus, UpdateSourceTrigger=PropertyChanged}"
                             FontSize="10" />
                         <Button
                             Width="90"
@@ -572,14 +538,14 @@
                             Command="{Binding AddCommand}"
                             CommandParameter="SpGetDeleted"
                             Content="Hinzufügen"
-                            IsEnabled="{Binding SpGetDeletedAddButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
+                            IsEnabled="{Binding SelectedEndpoint.SpGetDeletedAddButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
                         <Button
                             Width="90"
                             VerticalAlignment="Center"
                             Command="{Binding RemoveCommand}"
                             CommandParameter="SpGetDeleted"
                             Content="Entfernen"
-                            IsEnabled="{Binding SpGetDeletedRemoveButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
+                            IsEnabled="{Binding SelectedEndpoint.SpGetDeletedRemoveButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <Label
@@ -594,10 +560,10 @@
                             VerticalContentAlignment="Center"
                             d:Background="Green"
                             d:Content="OK"
-                            Background="{Binding SpUpdateStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Background="{Binding SelectedEndpoint.SpUpdateStatusColor, UpdateSourceTrigger=PropertyChanged}"
                             BorderBrush="Black"
                             BorderThickness="2"
-                            Content="{Binding SpUpdateStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Content="{Binding SelectedEndpoint.SpUpdateStatus, UpdateSourceTrigger=PropertyChanged}"
                             FontSize="10" />
                         <Button
                             Width="90"
@@ -606,14 +572,14 @@
                             Command="{Binding AddCommand}"
                             CommandParameter="SpUpdate"
                             Content="Hinzufügen"
-                            IsEnabled="{Binding SpUpdateAddButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
+                            IsEnabled="{Binding SelectedEndpoint.SpUpdateAddButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
                         <Button
                             Width="90"
                             VerticalAlignment="Center"
                             Command="{Binding RemoveCommand}"
                             CommandParameter="SpUpdate"
                             Content="Entfernen"
-                            IsEnabled="{Binding SpUpdateRemoveButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
+                            IsEnabled="{Binding SelectedEndpoint.SpUpdateRemoveButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <Label
@@ -628,10 +594,10 @@
                             VerticalContentAlignment="Center"
                             d:Background="Green"
                             d:Content="OK"
-                            Background="{Binding SpSearchStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Background="{Binding SelectedEndpoint.SpSearchStatusColor, UpdateSourceTrigger=PropertyChanged}"
                             BorderBrush="Black"
                             BorderThickness="2"
-                            Content="{Binding SpSearchStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Content="{Binding SelectedEndpoint.SpSearchStatus, UpdateSourceTrigger=PropertyChanged}"
                             FontSize="10" />
                         <Button
                             Width="90"
@@ -640,14 +606,14 @@
                             Command="{Binding AddCommand}"
                             CommandParameter="SpSearch"
                             Content="Hinzufügen"
-                            IsEnabled="{Binding SpSearchAddButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
+                            IsEnabled="{Binding SelectedEndpoint.SpSearchAddButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
                         <Button
                             Width="90"
                             VerticalAlignment="Center"
                             Command="{Binding RemoveCommand}"
                             CommandParameter="SpSearch"
                             Content="Entfernen"
-                            IsEnabled="{Binding SpSearchRemoveButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
+                            IsEnabled="{Binding SelectedEndpoint.SpSearchRemoveButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <Label
@@ -662,10 +628,10 @@
                             VerticalContentAlignment="Center"
                             d:Background="Green"
                             d:Content="OK"
-                            Background="{Binding SpDeleteStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Background="{Binding SelectedEndpoint.SpDeleteStatusColor, UpdateSourceTrigger=PropertyChanged}"
                             BorderBrush="Black"
                             BorderThickness="2"
-                            Content="{Binding SpDeleteStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Content="{Binding SelectedEndpoint.SpDeleteStatus, UpdateSourceTrigger=PropertyChanged}"
                             FontSize="10" />
                         <Button
                             Width="90"
@@ -674,14 +640,14 @@
                             Command="{Binding AddCommand}"
                             CommandParameter="SpDelete"
                             Content="Hinzufügen"
-                            IsEnabled="{Binding SpDeleteAddButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
+                            IsEnabled="{Binding SelectedEndpoint.SpDeleteAddButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
                         <Button
                             Width="90"
                             VerticalAlignment="Center"
                             Command="{Binding RemoveCommand}"
                             CommandParameter="SpDelete"
                             Content="Entfernen"
-                            IsEnabled="{Binding SpDeleteRemoveButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
+                            IsEnabled="{Binding SelectedEndpoint.SpDeleteRemoveButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <Label
@@ -696,10 +662,10 @@
                             VerticalContentAlignment="Center"
                             d:Background="Green"
                             d:Content="OK"
-                            Background="{Binding SpUndeleteStatusColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Background="{Binding SelectedEndpoint.SpUndeleteStatusColor, UpdateSourceTrigger=PropertyChanged}"
                             BorderBrush="Black"
                             BorderThickness="2"
-                            Content="{Binding SpUndeleteStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Content="{Binding SelectedEndpoint.SpUndeleteStatus, UpdateSourceTrigger=PropertyChanged}"
                             FontSize="10" />
                         <Button
                             Width="90"
@@ -708,14 +674,14 @@
                             Command="{Binding AddCommand}"
                             CommandParameter="SpUndelete"
                             Content="Hinzufügen"
-                            IsEnabled="{Binding SpUndeleteAddButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
+                            IsEnabled="{Binding SelectedEndpoint.SpUndeleteAddButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
                         <Button
                             Width="90"
                             VerticalAlignment="Center"
                             Command="{Binding RemoveCommand}"
                             CommandParameter="SpUndelete"
                             Content="Entfernen"
-                            IsEnabled="{Binding SpUndeleteRemoveButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
+                            IsEnabled="{Binding SelectedEndpoint.SpUndeleteRemoveButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                 </StackPanel>
             </GroupBox>

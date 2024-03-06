@@ -211,6 +211,25 @@ public class ConfigViewModel : BindableBase
         {
             case "Entity":
                 _endpointService.Remove(SelectedEndpoint.EntityFilePath, false);
+                _endpointService.Remove(SelectedEndpoint.ControllerFilePath, false);
+                _endpointService.Remove(SelectedEndpoint.AddRequestFilePath, true);
+                _endpointService.Remove(SelectedEndpoint.EditRequestFilePath, true);
+                _endpointService.Remove(SelectedEndpoint.DeleteRequestFilePath, true);
+                _endpointService.Remove(SelectedEndpoint.GetRequestFilePath, true);
+                _endpointService.Remove(SelectedEndpoint.SearchRequestFilePath, true);
+                _endpointService.Remove(SelectedEndpoint.ResponseFilePath, false);
+                _endpointService.Remove(SelectedEndpoint.ServiceFilePath, false);
+                _endpointService.Remove(SelectedEndpoint.ServiceImplFilePath, false);
+                _endpointService.Remove(SelectedEndpoint.RepositoryFilePath, false);
+                _endpointService.Remove(SelectedEndpoint.SpAddFilePath, true);
+                _endpointService.Remove(SelectedEndpoint.SpDeleteFilePath, true);
+                _endpointService.Remove(SelectedEndpoint.SpDeletePermanentFilePath, true);
+                _endpointService.Remove(SelectedEndpoint.SpGetFilePath, true);
+                _endpointService.Remove(SelectedEndpoint.SpGetByIdFilePath, true);
+                _endpointService.Remove(SelectedEndpoint.SpGetDeletedFilePath, true);
+                _endpointService.Remove(SelectedEndpoint.SpSearchFilePath, true);
+                _endpointService.Remove(SelectedEndpoint.SpUndeleteFilePath, true);
+                _endpointService.Remove(SelectedEndpoint.SpUpdateFilePath, true);
                 break;
             case "Controller":
                 _endpointService.Remove(SelectedEndpoint.ControllerFilePath, false);
@@ -243,22 +262,31 @@ public class ConfigViewModel : BindableBase
                 _endpointService.Remove(SelectedEndpoint.RepositoryFilePath, false);
                 break;
             case "SpAdd":
+                _endpointService.Remove(SelectedEndpoint.SpAddFilePath, true);
                 break;
             case "SpDelete":
+                _endpointService.Remove(SelectedEndpoint.SpDeleteFilePath, true);
                 break;
             case "SpDeletePermanent":
+                _endpointService.Remove(SelectedEndpoint.SpDeletePermanentFilePath, true);
                 break;
             case "SpGet":
+                _endpointService.Remove(SelectedEndpoint.SpGetFilePath, true);
                 break;
             case "SpGetById":
+                _endpointService.Remove(SelectedEndpoint.SpGetByIdFilePath, true);
                 break;
             case "SpGetDeleted":
+                _endpointService.Remove(SelectedEndpoint.SpGetDeletedFilePath, true);
                 break;
             case "SpSearch":
+                _endpointService.Remove(SelectedEndpoint.SpSearchFilePath, true);
                 break;
             case "SpUndelete":
+                _endpointService.Remove(SelectedEndpoint.SpUndeleteFilePath, true);
                 break;
             case "SpUpdate":
+                _endpointService.Remove(SelectedEndpoint.SpUpdateFilePath, true);
                 break;
         }
 
