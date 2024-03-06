@@ -184,6 +184,29 @@ public class ConfigViewModel : BindableBase
             case "SpUpdate":
                 _endpointService.Add(templateFile, SelectedEndpoint.SpUpdateFilePath, GetReplacementDictionary(SelectedEndpoint));
                 break;
+            case "Endpoint":
+                _endpointService.Add("Controller", SelectedEndpoint.ControllerFilePath, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.Add("AddRequest", SelectedEndpoint.AddRequestFilePath, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.Add("EditRequest", SelectedEndpoint.EditRequestFilePath, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.Add("DeleteRequest", SelectedEndpoint.DeleteRequestFilePath, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.Add("GetRequest", SelectedEndpoint.GetRequestFilePath, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.Add("SearchRequest", SelectedEndpoint.SearchRequestFilePath, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.Add("Response", SelectedEndpoint.ResponseFilePath, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.Add("Service", SelectedEndpoint.ServiceFilePath, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.Add("ServiceImpl", SelectedEndpoint.ServiceImplFilePath, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.Add("Repository", SelectedEndpoint.RepositoryFilePath, GetReplacementDictionary(SelectedEndpoint));
+                break;
+            case "SQL":
+                _endpointService.Add("SpAdd", SelectedEndpoint.SpAddFilePath, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.Add("SpDelete", SelectedEndpoint.SpDeleteFilePath, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.Add("SpDeletePermanent", SelectedEndpoint.SpDeletePermanentFilePath, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.Add("SpGet", SelectedEndpoint.SpGetFilePath, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.Add("SpGetById", SelectedEndpoint.SpGetByIdFilePath, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.Add("SpGetDeleted", SelectedEndpoint.SpGetDeletedFilePath, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.Add("SpSearch", SelectedEndpoint.SpSearchFilePath, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.Add("SpUndelete", SelectedEndpoint.SpUndeleteFilePath, GetReplacementDictionary(SelectedEndpoint));
+                _endpointService.Add("SpUpdate", SelectedEndpoint.SpUpdateFilePath, GetReplacementDictionary(SelectedEndpoint));
+                break;
         }
 
         Endpoints = new ObservableCollection<Endpoint>(_endpointService.GetEndpoints(ProjectPath));
@@ -286,6 +309,29 @@ public class ConfigViewModel : BindableBase
                 _endpointService.Remove(SelectedEndpoint.SpUndeleteFilePath, true);
                 break;
             case "SpUpdate":
+                _endpointService.Remove(SelectedEndpoint.SpUpdateFilePath, true);
+                break;
+            case "Endpoint":
+                _endpointService.Remove(SelectedEndpoint.ControllerFilePath, false);
+                _endpointService.Remove(SelectedEndpoint.AddRequestFilePath, true);
+                _endpointService.Remove(SelectedEndpoint.EditRequestFilePath, true);
+                _endpointService.Remove(SelectedEndpoint.DeleteRequestFilePath, true);
+                _endpointService.Remove(SelectedEndpoint.GetRequestFilePath, true);
+                _endpointService.Remove(SelectedEndpoint.SearchRequestFilePath, true);
+                _endpointService.Remove(SelectedEndpoint.ResponseFilePath, false);
+                _endpointService.Remove(SelectedEndpoint.ServiceFilePath, false);
+                _endpointService.Remove(SelectedEndpoint.ServiceImplFilePath, false);
+                _endpointService.Remove(SelectedEndpoint.RepositoryFilePath, false);
+                break;
+            case "SQL":
+                _endpointService.Remove(SelectedEndpoint.SpAddFilePath, true);
+                _endpointService.Remove(SelectedEndpoint.SpDeleteFilePath, true);
+                _endpointService.Remove(SelectedEndpoint.SpDeletePermanentFilePath, true);
+                _endpointService.Remove(SelectedEndpoint.SpGetFilePath, true);
+                _endpointService.Remove(SelectedEndpoint.SpGetByIdFilePath, true);
+                _endpointService.Remove(SelectedEndpoint.SpGetDeletedFilePath, true);
+                _endpointService.Remove(SelectedEndpoint.SpSearchFilePath, true);
+                _endpointService.Remove(SelectedEndpoint.SpUndeleteFilePath, true);
                 _endpointService.Remove(SelectedEndpoint.SpUpdateFilePath, true);
                 break;
         }

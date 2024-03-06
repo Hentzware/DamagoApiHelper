@@ -98,6 +98,16 @@
                 VerticalAlignment="Top"
                 Header="Endpunkt-Konfiugration">
                 <StackPanel Orientation="Vertical">
+                    <Button
+                        Margin="0,0,0,5"
+                        Command="{Binding AddCommand}"
+                        CommandParameter="Endpoint"
+                        Content="Alle hinzufügen" />
+                    <Button
+                        Margin="0,0,0,20"
+                        Command="{Binding RemoveCommand}"
+                        CommandParameter="Endpoint"
+                        Content="Alle entfernen" />
                     <StackPanel Orientation="Horizontal">
                         <Label
                             Width="120"
@@ -443,8 +453,21 @@
             </GroupBox>
         </StackPanel>
         <StackPanel Orientation="Vertical">
-            <GroupBox Header="SQL Skripte">
+            <GroupBox
+                Margin="10,10,0,0"
+                Padding="20"
+                Header="SQL Skripte">
                 <StackPanel Orientation="Vertical">
+                    <Button
+                        Margin="0,0,0,5"
+                        Command="{Binding AddCommand}"
+                        CommandParameter="SQL"
+                        Content="Alle hinzufügen" />
+                    <Button
+                        Margin="0,0,0,20"
+                        Command="{Binding RemoveCommand}"
+                        CommandParameter="SQL"
+                        Content="Alle entfernen" />
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <Label
                             Width="120"
