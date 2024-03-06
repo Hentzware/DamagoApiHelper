@@ -33,8 +33,8 @@ public class ConfigViewModel : BindableBase
     {
         get =>
             !string.IsNullOrEmpty(EntityName) &&
-            !string.IsNullOrEmpty(ProjectPath) &&
-            !string.IsNullOrEmpty(EntityNamePlural);
+            !string.IsNullOrEmpty(ProjectPath) && 
+            Endpoints.All(x => x.EntityName != EntityName);
         set => SetProperty(ref _entityAddButtonEnabled, value);
     }
 

@@ -541,6 +541,40 @@
                             Width="120"
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
+                            Content="Get By Id" />
+                        <Label
+                            Width="100"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            d:Background="Green"
+                            d:Content="OK"
+                            Background="{Binding SelectedEndpoint.SpGetByIdStatusColor, UpdateSourceTrigger=PropertyChanged}"
+                            BorderBrush="Black"
+                            BorderThickness="2"
+                            Content="{Binding SelectedEndpoint.SpGetByIdStatus, UpdateSourceTrigger=PropertyChanged}"
+                            FontSize="10" />
+                        <Button
+                            Width="90"
+                            Margin="10,0"
+                            VerticalAlignment="Center"
+                            Command="{Binding AddCommand}"
+                            CommandParameter="SpGetById"
+                            Content="Hinzufügen"
+                            IsEnabled="{Binding SelectedEndpoint.SpGetByIdAddButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button
+                            Width="90"
+                            VerticalAlignment="Center"
+                            Command="{Binding RemoveCommand}"
+                            CommandParameter="SpGetById"
+                            Content="Entfernen"
+                            IsEnabled="{Binding SelectedEndpoint.SpGetByIdRemoveButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                        <Label
+                            Width="120"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
                             Content="Get Deleted" />
                         <Label
                             Width="100"
@@ -671,6 +705,40 @@
                             CommandParameter="SpDelete"
                             Content="Entfernen"
                             IsEnabled="{Binding SelectedEndpoint.SpDeleteRemoveButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                        <Label
+                            Width="120"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Content="Delete Permanent" />
+                        <Label
+                            Width="100"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            d:Background="Green"
+                            d:Content="OK"
+                            Background="{Binding SelectedEndpoint.SpDeletePermanentStatusColor, UpdateSourceTrigger=PropertyChanged}"
+                            BorderBrush="Black"
+                            BorderThickness="2"
+                            Content="{Binding SelectedEndpoint.SpDeletePermanentStatus, UpdateSourceTrigger=PropertyChanged}"
+                            FontSize="10" />
+                        <Button
+                            Width="90"
+                            Margin="10,0"
+                            VerticalAlignment="Center"
+                            Command="{Binding AddCommand}"
+                            CommandParameter="SpDeletePermanent"
+                            Content="Hinzufügen"
+                            IsEnabled="{Binding SelectedEndpoint.SpDeletePermanentAddButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button
+                            Width="90"
+                            VerticalAlignment="Center"
+                            Command="{Binding RemoveCommand}"
+                            CommandParameter="SpDeletePermanent"
+                            Content="Entfernen"
+                            IsEnabled="{Binding SelectedEndpoint.SpDeletePermanentRemoveButtonEnabled, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <Label
